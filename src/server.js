@@ -41,7 +41,8 @@ const PORT = 8000
 app.set('view engine', 'ejs')
 //встановлюємо папки з шаблонами для ejs
 app.set('views', path.join(__dirname, 'templates'))
-
+//доустановка обробника json формату тому що express не вміє працювати з json за замовчуванням
+app.use(express.json()) 
 // створення посилання на static файли за посиланням /static/, використовую метод static() бібліотеки express.
 app.use('/static/', express.static(path.join(__dirname, 'static')))
 
@@ -88,6 +89,13 @@ app.get('/product/:id', (req, res) => {
     } else{
         res.send("ban")
     }
+})
+
+app.post('/product/create', (req, res) => {
+    const data = req.body
+    console.log(data)
+    products.push(data)
+    res.send('okay');
 })
 
 app.listen(PORT, HOST, () =>{
