@@ -1,3 +1,4 @@
+
 const products = [
     {
         "name": 'cat1',
@@ -31,7 +32,14 @@ const products = [
     }
 ]
 
-function getAllProducts(max){
+type Product = {
+    name: string;
+    src: string;
+    price: string;
+    description: string;
+}
+
+function getAllProducts(max: number){
     
     const context = {
         products: products
@@ -42,7 +50,7 @@ function getAllProducts(max){
     return context
 }
 
-function getProductById(id){
+function getProductById(id: number){
     const context = {
         product: products[id-1]
     }
@@ -54,12 +62,14 @@ function getProductById(id){
 
 }
 
-function createProduct(data){
+function createProduct(data: Product){
     products.push(data)
 }
 
-module.exports = {
+const productService = {
     getAllProducts: getAllProducts,
     getProductById: getProductById,
     createProduct: createProduct
 } 
+
+export default productService

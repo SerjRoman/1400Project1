@@ -1,0 +1,9 @@
+Для того что бы разделить модели на множество файлов в Prisma 
+1 - В генератор Client В файле Schema.prisma пишем previewFeatures = ["prismaSchemaFolder"]
+2 - В папке prisma создаем папку schema 
+3 - Переместить schema.prisma в папку schema 
+4 - prisma format форматирует файлы под стиль призмы
+5 - @relation создет связь
+6 - В fields указываем в поле с которым связана текущая модель 
+7 - include включает что то в поиск
+8 - prisma generate генерирует клиента

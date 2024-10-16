@@ -1,13 +1,13 @@
-const express = require('express')
-const path = require('path')
-const productRouter = require('./routers/productRouter')
+import express, { Express, Request, Response } from 'express';
+import path from 'path';
+import productRouter from './routers/productRouter';
 
+// Yuppi
 
-const app = express()
+const app: Express = express();
+const HOST: string = 'localhost';
+const PORT: number = 8000;
 
-// '127.0.0.1'
-const HOST = 'localhost'
-const PORT = 8000
 //ставимо движок 
 app.set('view engine', 'ejs')
 //встановлюємо папки з шаблонами для ejs
