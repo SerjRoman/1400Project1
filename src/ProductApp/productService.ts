@@ -1,4 +1,4 @@
-
+import productRepository from "./productRepository";
 const products = [
     {
         "name": 'cat1',
@@ -39,14 +39,14 @@ type Product = {
     description: string;
 }
 
-function getAllProducts(max: number){
+async function getAllProducts(max: number){
     
     const context = {
-        products: products
+        products: await productRepository.getAllProducts()
     }
-    if (max <= products.length) {
-        context.products = products.slice(0, max)
-    }
+    // if (max <= products.length) {
+    //     context.products = products.slice(0, max)
+    // }
     return context
 }
 

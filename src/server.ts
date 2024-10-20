@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import path from 'path';
-import productRouter from './routers/productRouter';
+import productRouter from './ProductApp/productRouter';
 
 // Yuppi
 

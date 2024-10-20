@@ -1,12 +1,12 @@
 // const productService = require('../services/productService')
-import productService from "../services/productService"
+import productService from "./productService"
 
 import express, { Express, Request, Response } from 'express'
 
 
-function getAllProducts(req:Request, res:Response) {
+async function getAllProducts(req:Request, res:Response) {
     const max  = Number(req.query.max)
-    const context = productService.getAllProducts(max)
+    const context = await productService.getAllProducts(max)
     res.render('products', context)
 }
 

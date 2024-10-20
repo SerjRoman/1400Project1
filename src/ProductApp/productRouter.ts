@@ -5,7 +5,7 @@
 // router.get('/:id', productController.getProductById)
 // router.post('/create', productController.createProduct)
 // module.exports = router
-import productControllers from '../controllers/productController';
+import productControllers from './productController';
 import {Router} from 'express';
 
 const router = Router();
