@@ -5,15 +5,12 @@
 // router.get('/:id', productController.getProductById)
 // router.post('/create', productController.createProduct)
 // module.exports = router
-import { authMiddleware } from '../middlewares/authMiddleware';
-import productControllers from './productController';
+import userControllers from './userController';
 import {Router} from 'express';
 
 const router = Router();
-router.use(authMiddleware)
 
-router.get('/', authMiddleware ,productControllers.getAllProducts);
-router.get('/:id', productControllers.getProductById); 
-router.post('/create', productControllers.createProduct);
+router.post('/login', userControllers.authUser)
+router.get('/login', userControllers.login)
 
 export default router;

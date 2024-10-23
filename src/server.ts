@@ -1,6 +1,8 @@
 import express, { Express, Request, Response } from 'express';
 import path from 'path';
 import productRouter from './ProductApp/productRouter';
+import userRouter from './UserApp/userRouter';
+import cookieParser from 'cookie-parser';
 
 // Yuppi
 
@@ -13,10 +15,12 @@ app.set('view engine', 'ejs')
 //встановлюємо папки з шаблонами для ejs
 app.set('views', path.join(__dirname, 'templates'))
 //доустановка обробника json формату тому що express не вміє працювати з json за замовчуванням
-app.use(express.json()) 
+app.use(express.json())
+app.use(cookieParser())
 // створення посилання на static файли за посиланням /static/, використовую метод static() бібліотеки express.
 app.use('/static/', express.static(path.join(__dirname, 'static')))
 app.use('/product/', productRouter)
+app.use('/', userRouter)
 // метод додатку express, який очікує запит по вказаному посиланню
 // другим аргументом передається функція, яка здійсниться в момент запиту
 // функція приймає req та res, req - request, res - response
