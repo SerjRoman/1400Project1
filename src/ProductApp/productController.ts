@@ -7,7 +7,8 @@ import express, { Express, Request, Response } from 'express'
 async function getAllProducts(req:Request, res:Response) {
     const max  = Number(req.query.max)
     const context = await productService.getAllProducts(max)
-    res.render('products', context)
+    res.render('products', {products: context.products, username: res.locals.user.username})
+    console.log(res.locals.user)
 }
 
 function getProductById(req:Request, res:Response){

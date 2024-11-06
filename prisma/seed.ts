@@ -53,7 +53,17 @@ async function findOneCategory(){
     console.log(category)
 }
 
-findOneProduct().then(() => {
+async function createOneUser(){
+    const user = await prisma.user.create({
+        data:{
+            username: "Sergey",
+            email: "sergey@gmail.com",
+            password: "12345"
+        }
+    })
+}
+
+createOneUser().then(() => {
     prisma.$disconnect()
 }).catch(err => {
     console.error(err);
