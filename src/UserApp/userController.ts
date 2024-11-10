@@ -7,6 +7,10 @@ function login(req: Request, res: Response){
     res.render('login')
 }
 
+function registration(req: Request, res: Response){
+    res.render('registration')
+}
+
 async function authUser(req: Request, res: Response){
     // console.log(req.body)
     // // метод cookie отправляет специальный заголовок Set-Cookie
@@ -16,19 +20,35 @@ async function authUser(req: Request, res: Response){
     const data = req.body
     const user = await userService.authUser(data.email, data.password)
     
-    if (user == 'error'){
-        res.send('error')
+    if (user.status == 'error'){
+        res.send(user.message)
         return 
     }
-    const token = sign(user, SECRET_KEY, {expiresIn: '1h'})
+
+    const token = sign(user.data, SECRET_KEY, {expiresIn: '1h'})
+    res.cookie('token', token)
+    res.sendStatus(200)
+}
+
+async function registerUser(req: Request, res: Response){
+    const data = req.body
+    const result = await userService.registerUser(data)
+    if (result.status == 'error'){
+        res.send(result.message)
+        return
+    }
+    const token = sign(result.data, SECRET_KEY, {expiresIn: '1h'})
     res.cookie('token', token)
     res.sendStatus(200)
 }
 
 
+
 const userController = {
     login: login,
-    authUser: authUser
+    authUser: authUser,
+    registration: registration,
+    registerUser: registerUser,
 }
 
 export default userController

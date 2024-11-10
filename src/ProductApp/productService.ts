@@ -1,5 +1,13 @@
 import productRepository from "./productRepository";
-const products = [
+
+type Product = {
+    name: string;
+    src: string;
+    price: string;
+    description: string;
+}
+
+const products: Product[] = [
     {
         "name": 'cat1',
         "src": "https://i.ytimg.com/vi/l3hoa-stJs4/maxresdefault.jpg",
@@ -32,12 +40,7 @@ const products = [
     }
 ]
 
-type Product = {
-    name: string;
-    src: string;
-    price: string;
-    description: string;
-}
+
 
 async function getAllProducts(max: number){
     
@@ -61,6 +64,7 @@ function getProductById(id: number){
     }
 
 }
+
 
 function createProduct(data: Product){
     products.push(data)

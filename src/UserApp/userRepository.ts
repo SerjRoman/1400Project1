@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import client from "../client/prismaClient";
 
 
@@ -15,8 +16,20 @@ async function findUserByEmail(email: string){
     }
 }
 
+async function createUser(data: Prisma.UserCreateInput){
+    try{
+        const user = await client.user.create({
+            data: data
+        })
+        return user;
+    }catch(error){
+        console.log(error);
+    }
+    //     ☆*: .｡. o(≧▽≦)o .｡.:*☆
+}
 const userRepository = {
-    findUserByEmail: findUserByEmail
+    findUserByEmail: findUserByEmail,
+    createUser: createUser,
 }
 
 export default userRepository;
