@@ -5,28 +5,37 @@ import express, { Express, Request, Response } from 'express'
 
 
 async function getAllProducts(req:Request, res:Response) {
-    const max  = Number(req.query.max)
-    const context = await productService.getAllProducts(max)
-    res.render('products', {products: context.products, username: res.locals.user.username})
-    console.log(res.locals.user)
+    const context = await productService.getAllProducts()
+    if (context.status == "error"){
+        res.send("error")
+    } else{
+        res.render('products', {products: context.data, username: res.locals.user.username})
+    }
+
+    
+    // console.log(res.locals.user)
 }
 
-function getProductById(req:Request, res:Response){
-    // console.log(req.params.id)
-    const id = Number(req.params.id)
-    const data = productService.getProductById(id)
-    if (id <= data.length){
-        res.render('product', data.context)
-    } else{
+async function getProductById(req:Request, res:Response){
+    let id = req.params.id
+    const result = await productService.getProductById(+id)
+    if (result.status == "error"){
         res.send("ban")
+        
+    } else{
+        res.render('product', result.data)
     }
 }
 
-function createProduct(req:Request, res:Response){
+async function createProduct(req:Request, res:Response){
     const data = req.body
     console.log(data)
-    productService.createProduct(data);
-    res.send('okay');
+    
+    const result = await productService.createProduct(data);
+    if (result.status == 'error'){
+        res.send('error');
+    }
+    res.send('ok')
 
 }
 

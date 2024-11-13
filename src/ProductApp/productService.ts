@@ -1,73 +1,61 @@
 import productRepository from "./productRepository";
+import { Prisma } from "@prisma/client";
 
-type Product = {
-    name: string;
-    src: string;
-    price: string;
-    description: string;
+interface IProduct{
+    id: number,
+    name: string,
+    src: string,
+    price: number,
+    description: string | null,
 }
 
-const products: Product[] = [
-    {
-        "name": 'cat1',
-        "src": "https://i.ytimg.com/vi/l3hoa-stJs4/maxresdefault.jpg",
-        "price": "1.5 БСМ",
-        "description": "Не дорогий кіт, крива комплектація, передній привід"
-    },
-    {
-        "name": 'cat2',
-        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9z4GJDIYppz98EzOpP0-8sv6vANTnYtFSYg&s",
-        "price": "1 ПК",
-        "description": "Збірка котів, банда чотирьох."
-    },
-    {
-        "name": 'cat3',
-        "src": "https://masterpiecer-images.s3.yandex.net/5f8da4a62a42a89:upscaled",
-        "price": "1 КФВ",
-        "description": "Кіт елітної комплектації."
-    },
-    {
-        "name": 'cat4',
-        "src": "https://img.freepik.com/free-photo/close-up-on-adorable-kitten-in-nature_23-2150782221.jpg",
-        "price": "2 К",
-        "description": "Звичайний кіт, осінній."
-    },
-    {
-        "name": 'cat5',
-        "src": "https://fbi.cults3d.com/uploaders/16600790/illustration-file/16a0b6ea-d282-444a-b222-5853ccd49e35/IMG_0316.webp",
-        "price": "200 БСМ",
-        "description": "Некоарт"
-    }
-]
+interface IProductError{
+    status: 'error',
+    message: string
+}
 
+interface IProductsSuccess{
+    status: 'success',
+    data: IProduct[]
+}
 
+interface IProductSuccess{
+    status: 'success',
+    data: IProduct
+}
 
-async function getAllProducts(max: number){
+async function getAllProducts(): Promise< IProductsSuccess | IProductError >{
     
-    const context = {
-        products: await productRepository.getAllProducts()
-    }
+    const products = await productRepository.getAllProducts()
     // if (max <= products.length) {
     //     context.products = products.slice(0, max)
     // }
-    return context
+
+    if (!products){
+        return {status: 'error', message: 'products not found'};
+    }
+    return {status: 'success', data: products};
 }
 
-function getProductById(id: number){
-    const context = {
-        product: products[id-1]
+async function getProductById(id: number): Promise< IProductSuccess | IProductError > {
+    let product = await productRepository.getProductById(id)
+
+    if (!product) {
+        return {status: 'error', message: 'product not found'}
     }
+
+    return {status: 'success', data: product}
     
-    return {
-        context: context,
-        length: products.length
-    }
-
 }
 
 
-function createProduct(data: Product){
-    products.push(data)
+async function createProduct(data: Prisma.ProductCreateInput): Promise< IProductSuccess | IProductError >{
+    let product = await productRepository.createProduct(data);
+    if (!product){
+        return {status: "error", message: "product create error"}
+    }
+
+    return {status: "success", data: product}
 }
 
 const productService = {

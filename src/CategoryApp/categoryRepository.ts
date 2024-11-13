@@ -108,4 +108,12 @@ async function findProductByCategory(id: number){
     }
 }
 
-export default { createCategory, findCategoryByName, getCategoryById, findProductByCategory, getAllCategories } 
+
+const categoryRepository = {
+    createCategory: createCategory,
+    findCategoryByName: findCategoryByName,
+    getCategoryById: getCategoryById,
+    findProductByCategory: findProductByCategory,
+    getAllCategories: getAllCategories
+}
+export default categoryRepository
