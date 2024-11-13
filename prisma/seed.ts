@@ -6,7 +6,8 @@ const prisma = new PrismaClient();
 async function createOneCategory(){
     const category = await prisma.category.create({
         data: {
-            name: 'Keyboards'
+            name: 'Keyboards',
+            src: "asdasdasd"
         }
     })
 }
@@ -34,7 +35,7 @@ async function findOneProduct(){
         },
 
         include: {
-            products: true
+            Products: true
         }
     })
     console.log(category)
@@ -47,7 +48,7 @@ async function findOneCategory(){
         },
 
         include: {
-            products: true
+            Products: true
         }
     })
     console.log(category)
@@ -63,9 +64,12 @@ async function createOneUser(){
     })
 }
 
+// async function 
+
 createOneUser().then(() => {
     prisma.$disconnect()
 }).catch(err => {
     console.error(err);
     prisma.$disconnect()
 })
+

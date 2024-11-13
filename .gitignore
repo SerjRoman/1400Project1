@@ -2,5 +2,4 @@
 package-lock.json
 /prisma/db/
 /prisma/migrations/
-.env
 .DS_Store
