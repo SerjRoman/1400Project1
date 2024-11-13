@@ -6,6 +6,7 @@
 // router.post('/create', productController.createProduct)
 // module.exports = router
 import { authMiddleware } from '../middlewares/authMiddleware';
+import { userRoleMiddleware } from '../middlewares/userRoleMiddleware';
 import productControllers from './productController';
 import {Router} from 'express';
 
@@ -14,6 +15,6 @@ router.use(authMiddleware)
 
 router.get('/', authMiddleware ,productControllers.getAllProducts);
 router.get('/:id', productControllers.getProductById); 
-router.post('/create', productControllers.createProduct);
+router.get('/:category/createProduct', userRoleMiddleware, productControllers.renderCreateProduct)
 
 export default router;

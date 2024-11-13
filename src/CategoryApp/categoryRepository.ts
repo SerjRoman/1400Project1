@@ -94,11 +94,11 @@ async function findCategoryByName(name: string) {
     }
 }
 
-async function findProductByCategory(id: number){
+async function findProductByCategory(name: string){
     try{
         const category = await client.category.findUnique({
             where: {
-                id: id
+                name: name
             },
             include: { Products: true }
         })

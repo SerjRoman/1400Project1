@@ -7,9 +7,9 @@
     </head>
 
     <body>
-        <!-- <h1><%= username %></h1> -->
+
         <h1>Category list</h1>
-        <% category.forEach((category) => { %>
+        <% categories.forEach((category) => { %>
             <h3><%= category.name %></h3>
             <a href="<%= category.name %>"><%= category.name %></a>
             <img src="<%= category.src %>">

@@ -15,6 +15,7 @@ interface ICategory{
     name: string
     description: string | null
     src: string
+    
 }
 
 interface ICategoryWithProducts{
@@ -39,6 +40,10 @@ interface ICategorySuccess{
     status: 'success',
     data: ICategory
 }
+interface ICategoryWithProductsSuccess{
+    status: 'success',
+    data: ICategoryWithProducts
+}
 
 async function getAllCategories(): Promise< ICategoryError | ICategoriesSuccess > {
     const categories = await categoryRepository.getAllCategories();
@@ -48,8 +53,8 @@ async function getAllCategories(): Promise< ICategoryError | ICategoriesSuccess 
     return {status: "success", data: categories}
 }
 
-async function getProductByCategory(id: number): Promise< ICategoryError | ICategorySuccess > {
-    const category = await categoryRepository.findProductByCategory(id);
+async function getProductByCategory(name: string): Promise< ICategoryError | ICategoryWithProductsSuccess > {
+    const category = await categoryRepository.findProductByCategory(name);
     if (!category){
         return {status: 'error', message: 'Category Not Found'}
     }

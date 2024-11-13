@@ -39,11 +39,15 @@ async function createProduct(req:Request, res:Response){
 
 }
 
+function renderCreateProduct(req:Request, res:Response) {
+    res.render('createProduct')
+}
 
 const productControllers = {
     getAllProducts: getAllProducts,
     getProductById: getProductById,
-    createProduct: createProduct
+    createProduct: createProduct,
+    renderCreateProduct:renderCreateProduct
 }
 
 export default productControllers

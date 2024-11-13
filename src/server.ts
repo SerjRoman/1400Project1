@@ -3,7 +3,7 @@ import path from 'path';
 import productRouter from './ProductApp/productRouter';
 import userRouter from './UserApp/userRouter';
 import cookieParser from 'cookie-parser';
-
+import categoryRouter from "./CategoryApp/categoryRouter"
 // Yuppi
 
 const app: Express = express();
@@ -20,6 +20,7 @@ app.use(cookieParser())
 // створення посилання на static файли за посиланням /static/, використовую метод static() бібліотеки express.
 app.use('/static/', express.static(path.join(__dirname, 'static')))
 app.use('/product/', productRouter)
+app.use('/category/', categoryRouter)
 app.use('/', userRouter)
 // метод додатку express, який очікує запит по вказаному посиланню
 // другим аргументом передається функція, яка здійсниться в момент запиту

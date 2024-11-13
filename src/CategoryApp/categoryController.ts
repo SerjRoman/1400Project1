@@ -3,30 +3,18 @@ import categoryService from "./categoryService"
 
 async function getAllCategories(req:Request, res:Response) {
     const context = await categoryService.getAllCategories()
-    res.render('allcategories', context)
-
-}
-
-
-
-async function getCategoryById(req:Request, res:Response){
-
-    const id = Number(req.params.id)
-    const data = await categoryService.getProductById(id)
-    if (id <= data.length){
-        res.render('productbycategory', data.context)
-    } else{
-        res.send("ban")
+    if (context.status == 'error') {
+        res.send(context.message)
+    }else {
+        res.render('allcategories',{categories: context.data})
     }
-}
 
+}
 
 function renderCreateCategory(req:Request, res:Response) {
-    res.render('create-category')
+    res.render('category-create')
 }
-function renderCreateProduct(req:Request, res:Response) {
-    res.render('createProduct')
-}
+
 
 async function createCategory(req:Request, res:Response) {
     const data = req.body
@@ -40,27 +28,23 @@ async function createCategory(req:Request, res:Response) {
 //     res.send('product created')
 // }
 
-async function productByCategory(req:Request, res:Response) {
+async function productsByCategory(req:Request, res:Response) {
     const category = req.params.category
     const data = await categoryService.getProductByCategory(category)
-    
-    if (data.length == 0){
-        res.send('No products found in this category')
-    } else{
-        res.render('productbycategory', data.context)
+
+    if (data.status == 'error') {
+        res.send(data.message)
+    }else {
+        res.render('productbycategory', {category: data.data})
     }
 
 }
 
 const categoryControllers = {
-    productByCategory: productByCategory,
+    productsByCategory: productsByCategory,
     createCategory: createCategory,
     renderCreateCategory: renderCreateCategory,
-    getCategoryById: getCategoryById,
-    getAllCategories: getAllCategories,
-    renderCreateProduct: renderCreateProduct
-
-
+    getAllCategories: getAllCategories
 }
 
 export default categoryControllers

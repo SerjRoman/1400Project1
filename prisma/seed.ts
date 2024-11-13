@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 async function createOneCategory(){
     const category = await prisma.category.create({
         data: {
-            name: 'Keyboards',
+            name: 'Keyboards2',
             src: "asdasdasd"
         }
     })
@@ -18,7 +18,7 @@ async function createOneProduct(){
             name: 'Keyboard1',
             src: '',
             price: 5,
-            categoryId: 1
+            categoryId: 2
         }
     })
 }
@@ -58,8 +58,9 @@ async function createOneUser(){
     const user = await prisma.user.create({
         data:{
             username: "Sergey",
-            email: "sergey@gmail.com",
-            password: "12345"
+            email: "sergey1@gmail.com",
+            password: "12345",
+            role: 'admin'
         }
     })
 }
