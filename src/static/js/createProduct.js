@@ -4,7 +4,7 @@ const description = document.querySelector('#productDesc');
 const price = document.querySelector('#productPrice');
 
 button.addEventListener('click', function() {
-    fetch('/productbycategory/createProduct',{
+    fetch('',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

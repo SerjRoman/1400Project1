@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-export function checkRole(req: Request, res: Response, next: NextFunction){
+export function userRoleMiddleware(req: Request, res: Response, next: NextFunction){
     const userCookie = req.cookies.user
     if (userCookie) {
         

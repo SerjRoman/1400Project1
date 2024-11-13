@@ -4,7 +4,7 @@ var description = document.querySelector('#description');
 var image = document.querySelector('#image');
 
 button.addEventListener('click', function() {
-    fetch('/category/create',{
+    fetch('/category/createCategory',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

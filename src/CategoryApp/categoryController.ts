@@ -9,10 +9,10 @@ async function getAllCategories(req:Request, res:Response) {
 
 
 
-function getCategoryById(req:Request, res:Response){
+async function getCategoryById(req:Request, res:Response){
 
     const id = Number(req.params.id)
-    const data = categoryService.getProductById(id)
+    const data = await categoryService.getProductById(id)
     if (id <= data.length){
         res.render('productbycategory', data.context)
     } else{
@@ -24,22 +24,25 @@ function getCategoryById(req:Request, res:Response){
 function renderCreateCategory(req:Request, res:Response) {
     res.render('create-category')
 }
+function renderCreateProduct(req:Request, res:Response) {
+    res.render('createProduct')
+}
 
-function createCategory(req:Request, res:Response) {
+async function createCategory(req:Request, res:Response) {
     const data = req.body
-    categoryService.createCategory(data);
+    const createdCategory = await categoryService.createCategory(data);
     res.send('category created')
 }
 
-function createProduct(req:Request, res:Response) {
-    const data = req.body
-    categoryService.createProduct(data)
-    res.send('product created')
-}
+// async function createProduct(req:Request, res:Response) {
+//     const data = req.body
+//     const createdProduct = await categoryService.createProduct(data)
+//     res.send('product created')
+// }
 
 async function productByCategory(req:Request, res:Response) {
     const category = req.params.category
-    const data = categoryService.getProductByCategory(category)
+    const data = await categoryService.getProductByCategory(category)
     
     if (data.length == 0){
         res.send('No products found in this category')
@@ -48,3 +51,16 @@ async function productByCategory(req:Request, res:Response) {
     }
 
 }
+
+const categoryControllers = {
+    productByCategory: productByCategory,
+    createCategory: createCategory,
+    renderCreateCategory: renderCreateCategory,
+    getCategoryById: getCategoryById,
+    getAllCategories: getAllCategories,
+    renderCreateProduct: renderCreateProduct
+
+
+}
+
+export default categoryControllers

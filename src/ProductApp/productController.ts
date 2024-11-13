@@ -11,10 +11,10 @@ async function getAllProducts(req:Request, res:Response) {
     console.log(res.locals.user)
 }
 
-function getProductById(req:Request, res:Response){
+async function getProductById(req:Request, res:Response){
     // console.log(req.params.id)
     const id = Number(req.params.id)
-    const data = productService.getProductById(id)
+    const data = await productService.getProductById(id)
     if (id <= data.length){
         res.render('product', data.context)
     } else{
@@ -22,11 +22,11 @@ function getProductById(req:Request, res:Response){
     }
 }
 
-function createProduct(req:Request, res:Response){
+async function createProduct(req:Request, res:Response){
     const data = req.body
     console.log(data)
-    productService.createProduct(data);
-    res.send('okay');
+    const createdProduct = productService.createProduct(data);
+    res.send('ok')
 
 }
 
