@@ -37,6 +37,7 @@ async function authUser(email: string, password: string): Promise< IUserError | 
 }   
 
 
+
 async function registerUser(data: Prisma.UserCreateInput): Promise< IUserError | IUserSuccess > {
     const user = await userRepository.findUserByEmail(data.email)
     
@@ -49,7 +50,7 @@ async function registerUser(data: Prisma.UserCreateInput): Promise< IUserError |
     } 
     return {status: 'success', data: yoUser}
 }
-    
+
 
 const userService = {
     authUser: authUser,

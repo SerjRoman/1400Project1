@@ -4,7 +4,4 @@ model Product {
   src         String
   price       Int
   description String?
-
-  Category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
 }
