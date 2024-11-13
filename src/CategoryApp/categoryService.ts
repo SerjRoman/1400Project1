@@ -71,3 +71,4 @@ const categoryService = {
     getProductByCategory: getProductByCategory,
     createCategory: createCategory
 }
+export default categoryService
