@@ -1,12 +1,13 @@
 import productRepository from "./productRepository";
 import { Prisma } from "@prisma/client";
 
-interface IProduct{
+export interface IProduct{
     id: number,
     name: string,
     src: string,
     price: number,
     description: string | null,
+    categoryId: number
 }
 
 interface IProductError{
@@ -38,7 +39,7 @@ async function getAllProducts(): Promise< IProductsSuccess | IProductError >{
 }
 
 async function getProductById(id: number): Promise< IProductSuccess | IProductError > {
-    let product = await productRepository.getProductById(id)
+    const product = await productRepository.getProductById(id)
 
     if (!product) {
         return {status: 'error', message: 'product not found'}
@@ -49,8 +50,8 @@ async function getProductById(id: number): Promise< IProductSuccess | IProductEr
 }
 
 
-async function createProduct(data: Prisma.ProductCreateInput): Promise< IProductSuccess | IProductError >{
-    let product = await productRepository.createProduct(data);
+async function createProduct(data: IProduct): Promise< IProductSuccess | IProductError >{
+    const product = await productRepository.createProduct(data);
     if (!product){
         return {status: "error", message: "product create error"}
     }

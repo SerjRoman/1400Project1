@@ -17,7 +17,7 @@ async function getAllProducts(req:Request, res:Response) {
 }
 
 async function getProductById(req:Request, res:Response){
-    let id = req.params.id
+    let id = Number(req.params.id)
     const result = await productService.getProductById(+id)
     if (result.status == "error"){
         res.send("ban")
@@ -33,7 +33,8 @@ async function createProduct(req:Request, res:Response){
     
     const result = await productService.createProduct(data);
     if (result.status == 'error'){
-        res.send('error');
+        res.send(result.message);
+        return
     }
     res.send('ok')
 

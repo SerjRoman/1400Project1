@@ -1,6 +1,6 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import client from '../client/prismaClient';
-
+import { IProduct } from './productService';
 
 async function getAllProducts(){
     try{
@@ -28,9 +28,15 @@ async function getProductById(id: number){
 
 }
 
-async function createProduct(data: Prisma.ProductCreateInput){
+async function createProduct(data: IProduct){
     let product = await client.product.create({
-        data: data
+        data: {
+            name: data.name,
+            src: data.src,
+            price: Number(data.price),
+            description: data.description,
+            categoryId: Number(data.categoryId)
+        }
     })
     return product
 }  

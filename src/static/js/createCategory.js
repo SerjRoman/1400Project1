@@ -1,18 +1,14 @@
-var button = document.querySelector('button');
-var name = document.querySelector('#name');
-var description = document.querySelector('#description');
-var image = document.querySelector('#image');
-
-button.addEventListener('click', function() {
-    fetch('/category/createCategory',{
+form.addEventListener('submit', (event)=>{
+    event.preventDefault()
+    fetch('', {
         method: 'POST',
+        body: JSON.stringify({
+            name: title.value,
+            description: description.value,
+            src: src.value
+        }),
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name.value,
-            description: description.value,
-            image: image.value
-        })
+        }
     })
 })
