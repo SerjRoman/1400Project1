@@ -20,11 +20,7 @@ interface IUser{
 
 async function authUser(email: string, password: string): Promise< IUserError | IUserSuccess > {
     let user = await userRepository.findUserByEmail(email);
-    // if (user){
-    //     if (password == user.password){
-    //         return user;
-    //     }else {}
-    // }else {}
+
     if (!user){
         return {status: 'error', message: 'user not found'};
     }
@@ -44,7 +40,15 @@ async function registerUser(data: Prisma.UserCreateInput): Promise< IUserError |
     if (user) {
         return {status: 'error', message: 'User exists yo'}
     }
-    const yoUser = await userRepository.createUser(data)
+
+const userData = {
+    username: data.username,
+    email: data.email,
+    password: data.password,
+    role: "user"
+}
+
+    const yoUser = await userRepository.createUser(userData)
     if (!yoUser) {
         return {status: 'error', message: 'create error yo'}
     } 

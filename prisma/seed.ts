@@ -18,7 +18,7 @@ async function createOneProduct(){
             name: 'Keyboard1',
             src: '',
             price: 5,
-            categoryId: 2
+            categoryId: 1
         }
     })
 }
@@ -67,7 +67,7 @@ async function createOneUser(){
 
 // async function 
 
-createOneUser().then(() => {
+createOneProduct().then(() => {
     prisma.$disconnect()
 }).catch(err => {
     console.error(err);
