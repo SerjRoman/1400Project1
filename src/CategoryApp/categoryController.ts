@@ -31,7 +31,7 @@ async function createCategory(req:Request, res:Response) {
 //     const createdProduct = await categoryService.createProduct(data)
 //     res.send('product created')
 // }
-
+//
 async function productsByCategory(req:Request, res:Response) {
     const category = req.params.category
     const data = await categoryService.getProductByCategory(category)
