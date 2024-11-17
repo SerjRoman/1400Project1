@@ -1,18 +1,21 @@
+var form = document.querySelector('#form');
 var button = document.querySelector('button');
-var name = document.querySelector('#name');
+var namee = document.querySelector('#namee');
 var description = document.querySelector('#description');
 var image = document.querySelector('#image');
 
-button.addEventListener('click', function() {
-    fetch('/category/createCategory',{
+form.addEventListener('submit', (event) => {
+    event.preventDefault()
+    fetch('./createCategory',{
         method: 'POST',
+        
+        body: JSON.stringify({
+            name: namee.value,
+            description: description.value,
+            src: image.value
+        }),
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name.value,
-            description: description.value,
-            image: image.value
-        })
+        }
     })
 })

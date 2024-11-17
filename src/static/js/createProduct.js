@@ -1,18 +1,23 @@
+const form = document.querySelector('#createProduct')
 const button = document.querySelector('button');
-const name = document.querySelector('#productName');
+const namee = document.querySelector('#productName');
 const description = document.querySelector('#productDesc');
 const price = document.querySelector('#productPrice');
+const image = document.querySelector('#image');
 
-button.addEventListener('click', function() {
-    fetch('',{
+form.addEventListener('submit', (event) => {
+    event.preventDefault()
+    fetch('./createProduct',{
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        
         body: JSON.stringify({
-            name: name.value,
+            name: namee.value,
             description: description.value,
             price: price.value,
-        })
+            src: image.value
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
 })

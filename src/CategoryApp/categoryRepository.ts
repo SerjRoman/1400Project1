@@ -4,11 +4,15 @@ import { Prisma } from '@prisma/client'
 // Создание одной Category
 async function createCategory(data: Prisma.CategoryCreateInput) {
     try{
-        const category = await client.category.create({
+
+        
+        let category = await client.category.create({
             data: data
         })
+        // console.log(category)
         return category
     } catch(error){
+        // console.log(error)
         if (error instanceof Prisma.PrismaClientKnownRequestError){
             if (error.code == 'P2002'){
                 console.log(error.message);
