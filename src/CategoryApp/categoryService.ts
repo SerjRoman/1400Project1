@@ -63,7 +63,7 @@ async function getProductByCategory(name: string): Promise< ICategoryError | ICa
     return {status: 'success', data: category}
 }
 
-async function createCategory(data: Prisma.CategoryCreateInput): Promise< ICategoryError | ICategorySuccess > {
+async function createCategory(data: ICategory): Promise< ICategoryError | ICategorySuccess > {
     let category = await categoryRepository.createCategory(data)
     if (!category){
         return {status: "error", message: "Category create error"}

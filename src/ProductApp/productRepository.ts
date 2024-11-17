@@ -1,6 +1,6 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import client from '../client/prismaClient';
-
+import { IProduct } from './productService';
 
 async function getAllProducts(){
     try{
@@ -8,11 +8,11 @@ async function getAllProducts(){
         
         })
         return products
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
+    } catch(error){
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code == 'P2002'){
+                console.log(error.message);
+                throw error;
             }
         }
     }
@@ -28,7 +28,7 @@ async function getProductById(id: number){
 
 }
 
-async function createProduct(data: Prisma.ProductCreateInput){
+async function createProduct(data: IProduct){
     let product = await client.product.create({
         data: data
     })

@@ -14,7 +14,8 @@ const router = Router();
 router.use(authMiddleware)
 
 router.get('/', authMiddleware ,productControllers.getAllProducts);
-router.get('/:id', productControllers.getProductById); 
-router.get('/:category/createProduct', userRoleMiddleware, productControllers.renderCreateProduct)
+router.get('/products/:id', productControllers.getProductById); 
+router.get('/createProduct', userRoleMiddleware, productControllers.renderCreateProduct)
+router.post('/createProduct', userRoleMiddleware, productControllers.createProduct)
 
 export default router;
