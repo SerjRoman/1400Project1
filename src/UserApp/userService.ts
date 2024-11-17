@@ -40,11 +40,14 @@ async function authUser(email: string, password: string): Promise< IUserError | 
 
 async function registerUser(data: Prisma.UserCreateInput): Promise< IUserError | IUserSuccess > {
     const user = await userRepository.findUserByEmail(data.email)
-    
     if (user) {
         return {status: 'error', message: 'User exists yo'}
     }
-    const yoUser = await userRepository.createUser(data)
+    const full_data = {
+        ...data,
+        role: 'user'
+    }
+    const yoUser = await userRepository.createUser(full_data)
     if (!yoUser) {
         return {status: 'error', message: 'create error yo'}
     } 

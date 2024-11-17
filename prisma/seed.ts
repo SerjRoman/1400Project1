@@ -57,9 +57,9 @@ async function findOneCategory(){
 async function createOneUser(){
     const user = await prisma.user.create({
         data:{
-            username: "Sergey",
-            email: "sergey1@gmail.com",
-            password: "12345",
+            username: "Antony",
+            email: "antony@gmail.com",
+            password: "1234",
             role: 'admin'
         }
     })

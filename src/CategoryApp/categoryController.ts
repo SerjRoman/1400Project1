@@ -18,7 +18,13 @@ function renderCreateCategory(req:Request, res:Response) {
 
 async function createCategory(req:Request, res:Response) {
     const data = req.body
+    console.log('controller', data)
     const createdCategory = await categoryService.createCategory(data);
+    console.log(createdCategory)
+    if (createdCategory.status == 'error'){
+        res.send('category was not created!!!!')
+        return
+    }
     res.send('category created')
 }
 

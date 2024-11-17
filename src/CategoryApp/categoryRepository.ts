@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client'
 
 // Создание одной Category
 async function createCategory(data: Prisma.CategoryCreateInput) {
+    console.log('repository',data)
     try{
         const category = await client.category.create({
             data: data

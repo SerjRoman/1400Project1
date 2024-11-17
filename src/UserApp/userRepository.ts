@@ -22,7 +22,7 @@ async function createUser(data: Prisma.UserCreateInput){
             data: data
         })
         return user;
-    }catch(error){
+    } catch(error) {
         console.log(error);
     }
     //     ☆*: .｡. o(≧▽≦)o .｡.:*☆

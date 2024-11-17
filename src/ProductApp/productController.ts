@@ -32,6 +32,7 @@ async function createProduct(req:Request, res:Response){
     console.log(data)
     
     const result = await productService.createProduct(data);
+    console.log(result)
     if (result.status == 'error'){
         res.send('error');
     }
