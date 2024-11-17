@@ -23,7 +23,7 @@ interface ICategoryWithProducts{
     name: string
     description: string | null
     src: string,
-    Products: IProduct[]
+    // Products: IProduct[]
 }
 
 interface ICategoryError{
@@ -50,6 +50,7 @@ async function getAllCategories(): Promise< ICategoryError | ICategoriesSuccess 
     if (!categories){
         return {status: "error", message: "Categories Not Found"}
     }
+    console.log(categories)
     return {status: "success", data: categories}
 }
 
@@ -58,14 +59,16 @@ async function getProductByCategory(name: string): Promise< ICategoryError | ICa
     if (!category){
         return {status: 'error', message: 'Category Not Found'}
     }
-    
+    // console.log(category)
     // let products = category.Products
     return {status: 'success', data: category}
 }
 
 async function createCategory(data: Prisma.CategoryCreateInput): Promise< ICategoryError | ICategorySuccess > {
-    let category = await categoryRepository.createCategory(data)
+    const category = await categoryRepository.createCategory(data)
+    // console.log(category)
     if (!category){
+        // console.log(category)
         return {status: "error", message: "Category create error"}
     }
     return {status: "success", data: category}

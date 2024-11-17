@@ -4,7 +4,8 @@ form.addEventListener('submit', (event)=>{
         method: 'POST',
         body: JSON.stringify({
             email: email.value,
-            password: password.value
+            password: password.value,
+            role: 'admin'
         }),
         headers: {
             'Content-Type': 'application/json'

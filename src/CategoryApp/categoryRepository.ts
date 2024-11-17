@@ -9,6 +9,7 @@ async function createCategory(data: Prisma.CategoryCreateInput) {
         })
         return category
     } catch(error){
+        // throw error
         if (error instanceof Prisma.PrismaClientKnownRequestError){
             if (error.code == 'P2002'){
                 console.log(error.message);
@@ -81,7 +82,7 @@ async function getCategoryById(id: number) {
     }
 }
 
-async function findCategoryByName(name: string) {
+async function findCategoryByName(name: any) {
     try {
         const category = await client.category.findUnique({
             where: {

@@ -19,12 +19,12 @@ async function authUser(req: Request, res: Response){
 
     const data = req.body
     const user = await userService.authUser(data.email, data.password)
-    
+    console.log(user)
     if (user.status == 'error'){
         res.send(user.message)
         return 
     }
-
+    console.log(user)
     const token = sign(user.data, SECRET_KEY, {expiresIn: '1h'})
     res.cookie('token', token)
     res.sendStatus(200)
