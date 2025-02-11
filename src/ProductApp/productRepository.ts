@@ -11,7 +11,7 @@ async function getAllProducts(){
         return products
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
+            if (error.code in Object.keys(errors.key)){
                 const errorKey: keyof IErrors = error.code
                 console.log(errors[errorKey])
             }
