@@ -34,7 +34,7 @@ async function productsByCategory(req:Request, res:Response) {
 
     if (data.status == 'error') {
         res.send(data.message)
-    }else {
+    } else {
         res.render('productbycategory', {category: data.data})
     }
 
