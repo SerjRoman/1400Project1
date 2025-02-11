@@ -13,7 +13,6 @@ async function getAllProducts(req: Request, res: Response) {
     }
 
     
-    // console.log(res.locals.user)
 }
 
 async function getProductById(req:Request, res:Response){
