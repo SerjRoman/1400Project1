@@ -1,5 +1,6 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import client from '../client/prismaClient';
+import { errors, IErrors } from '../config/errorCodes'
 
 
 async function getAllProducts(){
@@ -8,11 +9,11 @@ async function getAllProducts(){
         
         })
         return products
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
+    } catch(error){
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors.key)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
     }

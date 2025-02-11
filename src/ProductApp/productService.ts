@@ -1,28 +1,24 @@
 import productRepository from "./productRepository";
 import { Prisma } from "@prisma/client";
+import { Product, IProductError, IProductsSuccess, IProductSuccess } from '../types'
 
-interface IProduct{
-    id: number,
-    name: string,
-    src: string,
-    price: number,
-    description: string | null,
-}
 
-interface IProductError{
-    status: 'error',
-    message: string
-}
+// type Product = Prisma.ProductGetPayload<{}>
 
-interface IProductsSuccess{
-    status: 'success',
-    data: IProduct[]
-}
+// interface IProductError{
+//     status: 'error',
+//     message: string
+// }
 
-interface IProductSuccess{
-    status: 'success',
-    data: IProduct
-}
+// interface IProductsSuccess{
+//     status: 'success',
+//     data: Product[]
+// }
+
+// interface IProductSuccess{
+//     status: 'success',
+//     data: Product
+// }
 
 async function getAllProducts(): Promise< IProductsSuccess | IProductError >{
     

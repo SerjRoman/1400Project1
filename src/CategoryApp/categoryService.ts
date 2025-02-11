@@ -1,49 +1,10 @@
 import { create } from "ts-node";
 import categoryRepository from "./categoryRepository";
 import { Prisma } from "@prisma/client";
+import { Product, Category, CategoryWithProducts, ICategoryError, ICategoriesSuccess, ICategorySuccess, ICategoryWithProductsSuccess } from '../types'
 
-interface IProduct{
-    id: number,
-    name: string,
-    src: string,
-    price: number,
-    description: string | null,
-}
 
-interface ICategory{
-    id: number
-    name: string
-    description: string | null
-    src: string
-    
-}
-
-interface ICategoryWithProducts{
-    id: number
-    name: string
-    description: string | null
-    src: string,
-    // Products: IProduct[]
-}
-
-interface ICategoryError{
-    status: 'error',
-    message: string
-}
-
-interface ICategoriesSuccess{
-    status: 'success',
-    data: ICategory[]
-}
-
-interface ICategorySuccess{
-    status: 'success',
-    data: ICategory
-}
-interface ICategoryWithProductsSuccess{
-    status: 'success',
-    data: ICategoryWithProducts
-}
+// type Product = Prisma.ProductGetPayload<{}>
 
 async function getAllCategories(): Promise< ICategoryError | ICategoriesSuccess > {
     const categories = await categoryRepository.getAllCategories();
