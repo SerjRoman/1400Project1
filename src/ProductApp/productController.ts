@@ -1,7 +1,7 @@
 // const productService = require('../services/productService')
 import productService from "./productService"
 
-import express, { Express, Request, Response } from 'express'
+import  { Request, Response } from 'express'
 
 
 async function getAllProducts(req:Request, res:Response) {
@@ -26,23 +26,27 @@ async function getProductById(req:Request, res:Response){
         res.render('product', result.data)
     }
 }
-
+// 
 async function createProduct(req:Request, res:Response){
     const data = req.body
     console.log(data)
     
     const result = await productService.createProduct(data);
     if (result.status == 'error'){
-        res.send(result.message);
-        return
+        res.send('error');
+    } else {
+        res.send('ok')
     }
-    res.send('ok')
 
 }
 
 function renderCreateProduct(req:Request, res:Response) {
     res.render('createProduct')
 }
+
+// function getProducts
+
+
 
 const productControllers = {
     getAllProducts: getAllProducts,

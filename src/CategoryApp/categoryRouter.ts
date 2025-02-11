@@ -7,10 +7,10 @@ import { authMiddleware } from '../middlewares/authMiddleware';
 const router = Router();
 
 router.get('/allcategories', categoryControllers.getAllCategories)
-router.get('/createCategory',authMiddleware, userRoleMiddleware, categoryControllers.renderCreateCategory)
+router.post('/:category/createProduct', authMiddleware, userRoleMiddleware, productControllers.createProduct) 
+
+router.get('/createCategory', authMiddleware, userRoleMiddleware, categoryControllers.renderCreateCategory)
 router.post('/createCategory', authMiddleware, userRoleMiddleware, categoryControllers.createCategory)
 router.get('/:category', categoryControllers.productsByCategory)
-
-
 
 export default router

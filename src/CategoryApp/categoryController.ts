@@ -18,14 +18,8 @@ function renderCreateCategory(req:Request, res:Response) {
 
 async function createCategory(req:Request, res:Response) {
     const data = req.body
-    console.log(data)
     const createdCategory = await categoryService.createCategory(data);
-    if (createdCategory.status == 'error') {
-        res.send(createdCategory.message)
-        return
-    }
     res.send('category created')
-    
 }
 
 // async function createProduct(req:Request, res:Response) {
@@ -40,7 +34,7 @@ async function productsByCategory(req:Request, res:Response) {
 
     if (data.status == 'error') {
         res.send(data.message)
-    }else {
+    } else {
         res.render('productbycategory', {category: data.data})
     }
 
