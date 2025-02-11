@@ -1,17 +1,6 @@
 import { Prisma } from "@prisma/client";
 import userRepository from "./userRepository";
-
-type User = Prisma.UserGetPayload<{}>
-
-interface IUserError{
-    status: 'error',
-    message: string
-}
-
-interface IUserSuccess{
-    status: 'success',
-    data: User
-}
+import { IUserError, IUserSuccess } from "./types";
 
 async function authUser(email: string, password: string): Promise< IUserError | IUserSuccess > {
     let user = await userRepository.findUserByEmail(email);
