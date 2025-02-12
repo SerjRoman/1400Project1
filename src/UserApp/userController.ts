@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import userService from './userService'
 import { SECRET_KEY } from '../config/token'
 import { sign } from 'jsonwebtoken'
@@ -28,6 +28,7 @@ async function authUser(req: Request, res: Response){
     const token = sign(user.data, SECRET_KEY, {expiresIn: '1h'})
     res.cookie('token', token)
     res.sendStatus(200)
+    // res.send("Welcome")
 }
 
 async function registerUser(req: Request, res: Response){
@@ -40,6 +41,7 @@ async function registerUser(req: Request, res: Response){
     const token = sign(result.data, SECRET_KEY, {expiresIn: '1h'})
     res.cookie('token', token)
     res.sendStatus(200)
+    res.send("Successfully registered")
 }
 
 
