@@ -1,116 +1,75 @@
-import client from '../client/prismaClient'
-import { Prisma } from '@prisma/client'
-import { errors, IErrors } from '../config/errorCodes'
+import client from '../client/prismaClient';
+import { Prisma } from '@prisma/client';
+import { errors, IErrors } from '../config/errorCodes';
+import { ICategory, ICreateCategory, ICategoryResponse } from './types';
 
 // Создание одной Category
-async function createCategory(data: Prisma.CategoryCreateInput) {
-    try{
+async function createCategory(data: ICreateCategory): Promise<ICategoryResponse> {
+    try {
         const category = await client.category.create({
             data: data
-        })
-        return category
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
-                const errorKey: keyof IErrors = error.code
-                console.log(errors[errorKey])
+        });
+        return { status: 'success', data: category };
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code in Object.keys(errors)) {
+                const errorKey: keyof IErrors = error.code;
+                console.error(errors[errorKey]);
+                return { status: 'error', message: errors[errorKey] };
             }
         }
+        console.error('Error creating category:', error);
+        return { status: 'error', message: 'Error creating category' };
     }
 }
-
-
-
-
-
 
 // Получение всех Category
-async function getAllCategories() {
-    try{
-        const categories = await client.category.findMany({})
-        return categories
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2007') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2003') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2014') {
-                console.log(error.message);
-                throw error
+async function getAllCategories(): Promise<ICategoryResponse> {
+    try {
+        const categories = await client.category.findMany({});
+        return { status: 'success', data: categories };
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code in Object.keys(errors)) {
+                const errorKey: keyof IErrors = error.code;
+                console.error(errors[errorKey]);
+                return { status: 'error', message: errors[errorKey] };
             }
         }
-    }
-}
-// Получение Category по айди
-async function getCategoryById(id: number) {
-    try{
-        let category = await client.category.findUnique({
-            where: {
-                id: id
-            }
-        })
-        return category
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2003'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2007'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2014'){
-                console.log(error.message)
-                throw error
-            }
-        }
+        console.error('Error fetching categories:', error);
+        return { status: 'error', message: 'Error fetching categories' };
     }
 }
 
-async function findCategoryByName(name: string) {
+// Получение Category по айди
+async function getCategoryById(id: number): Promise<ICategoryResponse> {
     try {
         const category = await client.category.findUnique({
             where: {
-                name: name
+                id: id
             }
-        })
-        return category
-    } catch(error) {
-        console.log(error)
+        });
+        if (!category) {
+            return { status: 'error', message: 'Category not found' };
+        }
+        return { status: 'success', data: category };
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code in Object.keys(errors)) {
+                const errorKey: keyof IErrors = error.code;
+                console.error(errors[errorKey]);
+                return { status: 'error', message: errors[errorKey] };
+            }
+        }
+        console.error(`Error fetching category with id ${id}:`, error);
+        return { status: 'error', message: `Error fetching category with id ${id}` };
     }
 }
-
-async function findProductByCategory(name: string){
-    try{
-        const category = await client.category.findUnique({
-            where: {
-                name: name
-            },
-            include: { Products: true }
-        })
-        return category
-    } catch(error) {
-        console.log(error)
-    }
-}
-
 
 const categoryRepository = {
-    createCategory: createCategory,
-    findCategoryByName: findCategoryByName,
-    getCategoryById: getCategoryById,
-    findProductByCategory: findProductByCategory,
-    getAllCategories: getAllCategories
-}
-export default categoryRepository
+    createCategory,
+    getAllCategories,
+    getCategoryById
+};
+
+export default categoryRepository;
