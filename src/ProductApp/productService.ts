@@ -1,22 +1,6 @@
 import productRepository from "./productRepository";
 import { Prisma } from "@prisma/client";
-
-type Product = Prisma.ProductGetPayload<{}>
-
-interface IProductError{
-    status: 'error',
-    message: string
-}
-
-interface IProductsSuccess{
-    status: 'success',
-    data: Product[]
-}
-
-interface IProductSuccess{
-    status: 'success',
-    data: Product
-}
+import { IProductError, IProductsSuccess, IProductSuccess } from "./types";
 
 async function getAllProducts(): Promise< IProductsSuccess | IProductError >{
     
@@ -43,7 +27,7 @@ async function getProductById(id: number): Promise< IProductSuccess | IProductEr
 }
 
 
-async function createProduct(data: Prisma.ProductCreateInput): Promise< IProductSuccess | IProductError >{
+async function createProduct(data: IProduct): Promise< IProductSuccess | IProductError >{
     let product = await productRepository.createProduct(data);
     if (!product){
         return {status: "error", message: "product create error"}
@@ -55,7 +39,8 @@ async function createProduct(data: Prisma.ProductCreateInput): Promise< IProduct
 const productService = {
     getAllProducts: getAllProducts,
     getProductById: getProductById,
-    createProduct: createProduct
+    createProduct: createProduct,
+    // IProduct: IProduct,
 } 
 
 export default productService

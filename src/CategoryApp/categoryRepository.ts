@@ -26,57 +26,40 @@ async function createCategory(data: Prisma.CategoryCreateInput) {
 
 // Получение всех Category
 async function getAllCategories() {
-    try{
+    try {
         const categories = await client.category.findMany({})
         return categories
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2007') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2003') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2014') {
-                console.log(error.message);
-                throw error
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code == 'P2002' || error.code == 'P2007' || error.code == 'P2003' || error.code == 'P2014') {
+                console.error(error.message);
+                throw error;
             }
         }
+        throw error;
     }
 }
+
 // Получение Category по айди
 async function getCategoryById(id: number) {
-    try{
+    try {
         let category = await client.category.findUnique({
             where: {
                 id: id
             }
         })
         return category
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2003'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2007'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2014'){
-                console.log(error.message)
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code == 'P2002' || error.code == 'P2003' || error.code == 'P2007' || error.code == 'P2014') {
+                console.log(error.message)  
                 throw error
             }
         }
+        throw error
     }
 }
+
 
 async function findCategoryByName(name: string) {
     try {
