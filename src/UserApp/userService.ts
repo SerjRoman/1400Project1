@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import userRepository from "./userRepository";
-import { User, IUserError, IUserSuccess } from '../types'
+import { IUserError, IUserSuccess, User } from "./types";
 
 async function authUser(email: string, password: string): Promise< IUserError | IUserSuccess > {
     let user = await userRepository.findUserByEmail(email);

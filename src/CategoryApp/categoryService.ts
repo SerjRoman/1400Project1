@@ -1,10 +1,7 @@
-import { create } from "ts-node";
 import categoryRepository from "./categoryRepository";
 import { Prisma } from "@prisma/client";
-import { Product, Category, CategoryWithProducts, ICategoryError, ICategoriesSuccess, ICategorySuccess, ICategoryWithProductsSuccess } from '../types'
 
-
-// type Product = Prisma.ProductGetPayload<{}>
+import { ICategoriesSuccess, ICategoryError, ICategorySuccess, ICategoryWithProductsSuccess } from "./types";
 
 async function getAllCategories(): Promise< ICategoryError | ICategoriesSuccess > {
     const categories = await categoryRepository.getAllCategories();
@@ -27,7 +24,6 @@ async function getProductByCategory(name: string): Promise< ICategoryError | ICa
 
 async function createCategory(data: Prisma.CategoryCreateInput): Promise< ICategoryError | ICategorySuccess > {
     const category = await categoryRepository.createCategory(data)
-    // console.log(category)
     if (!category){
         // console.log(category)
         return {status: "error", message: "Category create error"}
