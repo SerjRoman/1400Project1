@@ -1,17 +1,17 @@
-export interface Product {
+export interface IProduct {
     id: number;
     name: string;
     price: number;
     categoryId: number;
 }
 
-export interface CreateProduct {
+export interface ICreateProduct {
     name: string;
     price: number;
     categoryId: number;
 }
 
-export interface UpdateProduct {
+export interface IUpdateProduct {
     name?: string;
     price?: number;
     categoryId?: number;
