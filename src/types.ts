@@ -16,3 +16,19 @@ export interface IUpdateProduct {
     price?: number;
     categoryId?: number;
 }
+export interface IUser {
+    id: number;
+    email: string;
+    password: string;
+}
+
+export interface ICreateUser {
+    email: string;
+    password: string;
+}
+
+export interface IUserResponse {
+    status: string;
+    data?: User;
+    message?: string;
+}
