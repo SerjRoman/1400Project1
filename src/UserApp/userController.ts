@@ -12,17 +12,12 @@ function registration(req: Request, res: Response){
 }
 
 async function authUser(req: Request, res: Response){
-    // console.log(req.body)
-    // // метод cookie отправляет специальный заголовок Set-Cookie
-    // res.cookie('user', req.body.email)
-    // res.sendStatus(200)
-
     const data = req.body
     const user = await userService.authUser(data.email, data.password)
     
-    if (user.status == 'error'){
-        res.send(user.message)
-        return 
+    if (user.status == 'error') {
+        res.send(`${user.status}, ${user.message}`)
+        return
     }
 
     const token = sign(user.data, SECRET_KEY, {expiresIn: '1h'})
@@ -34,7 +29,7 @@ async function registerUser(req: Request, res: Response){
     const data = req.body
     const result = await userService.registerUser(data)
     if (result.status == 'error'){
-        res.send(result.message)
+        res.send(`${result.status}, ${result.message}`)
         return
     }
     const token = sign(result.data, SECRET_KEY, {expiresIn: '1h'})

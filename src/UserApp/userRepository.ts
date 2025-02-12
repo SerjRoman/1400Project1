@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import client from "../client/prismaClient";
+import { errors, IError } from "../config/errorCodes";
 
 
 async function findUserByEmail(email: string){
@@ -9,10 +10,14 @@ async function findUserByEmail(email: string){
                 email: email
             }
         })
-
         return user;
     } catch(error){
-        console.log(error);
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (errors.filter((err) => err.errorCode == error.code)){
+                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
+                console.log(err[0].message)
+            }
+        }
     }
 }
 
@@ -22,10 +27,14 @@ async function createUser(data: Prisma.UserCreateInput){
             data: data
         })
         return user;
-    }catch(error){
-        console.log(error);
+    } catch(error){
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (errors.filter((err) => err.errorCode == error.code)){
+                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
+                console.log(err[0].message)
+            }
+        }
     }
-    //     ☆*: .｡. o(≧▽≦)o .｡.:*☆
 }
 const userRepository = {
     findUserByEmail: findUserByEmail,

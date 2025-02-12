@@ -13,6 +13,4 @@ router.get('/createCategory', authMiddleware, userRoleMiddleware, categoryContro
 router.post('/createCategory', authMiddleware, userRoleMiddleware, categoryControllers.createCategory)
 router.get('/:category', categoryControllers.productsByCategory)
 
-
-
 export default router

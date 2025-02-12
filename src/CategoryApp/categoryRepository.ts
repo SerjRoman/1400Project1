@@ -1,6 +1,6 @@
 import client from '../client/prismaClient'
 import { Prisma } from '@prisma/client'
-import { errors, IErrors } from '../config/errorCodes'
+import { errors, IError } from '../config/errorCodes'
 
 // Создание одной Category
 async function createCategory(data: Prisma.CategoryCreateInput) {
@@ -11,18 +11,13 @@ async function createCategory(data: Prisma.CategoryCreateInput) {
         return category
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
-                const errorKey: keyof IErrors = error.code
-                console.log(errors[errorKey])
+            if (errors.filter((err) => err.errorCode == error.code)){
+                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
+                console.log(err[0].message)
             }
         }
     }
 }
-
-
-
-
-
 
 // Получение всех Category
 async function getAllCategories() {
@@ -31,22 +26,14 @@ async function getAllCategories() {
         return categories
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2007') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2003') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2014') {
-                console.log(error.message);
-                throw error
+            if (errors.filter((err) => err.errorCode == error.code)){
+                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
+                console.log(err[0].message)
             }
         }
     }
 }
+
 // Получение Category по айди
 async function getCategoryById(id: number) {
     try{
@@ -58,36 +45,29 @@ async function getCategoryById(id: number) {
         return category
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2003'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2007'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2014'){
-                console.log(error.message)
-                throw error
+            if (errors.filter((err) => err.errorCode == error.code)){
+                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
+                console.log(err[0].message)
             }
         }
     }
 }
 
 async function findCategoryByName(name: string) {
-    try {
+    try{
         const category = await client.category.findUnique({
             where: {
                 name: name
             }
         })
         return category
-    } catch(error) {
-        console.log(error)
+    } catch(error){
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (errors.filter((err) => err.errorCode == error.code)){
+                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
+                console.log(err[0].message)
+            }
+        }
     }
 }
 
@@ -100,8 +80,13 @@ async function findProductByCategory(name: string){
             include: { Products: true }
         })
         return category
-    } catch(error) {
-        console.log(error)
+    } catch(error){
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (errors.filter((err) => err.errorCode == error.code)){
+                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
+                console.log(err[0].message)
+            }
+        }
     }
 }
 

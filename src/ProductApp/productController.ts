@@ -7,21 +7,17 @@ import express, { Express, Request, Response } from 'express'
 async function getAllProducts(req:Request, res:Response) {
     const context = await productService.getAllProducts()
     if (context.status == "error"){
-        res.send("error")
+        res.send(`${context.status}, ${context.message}`)
     } else{
         res.render('products', {products: context.data, username: res.locals.user.username})
     }
-
-    
-    // console.log(res.locals.user)
 }
 
 async function getProductById(req:Request, res:Response){
     let id = req.params.id
     const result = await productService.getProductById(+id)
     if (result.status == "error"){
-        res.send("ban")
-        
+        res.send(`${result.status}, ${result.message}`)
     } else{
         res.render('product', result.data)
     }
