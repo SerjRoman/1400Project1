@@ -1,14 +1,18 @@
-import { Prisma } from "@prisma/client"
 
-export type Product = Prisma.ProductGetPayload<{}>
+import { Prisma } from "@prisma/client";
 
-export type Category = Prisma.CategoryGetPayload<{}>
+type Product = Prisma.ProductGetPayload<{}>
 
-export type CategoryWithProducts = Prisma.CategoryGetPayload<{
+type Category = Prisma.CategoryGetPayload<{}>
+
+type CategoryWithProducts = Prisma.CategoryGetPayload<{
     include: {
         Products: true
     }
 }>
+
+// {id: number, name: string, Products: [{name: string, id: number}]}
+
 
 export interface ICategoryError{
     status: 'error',

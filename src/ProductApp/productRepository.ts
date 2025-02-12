@@ -20,9 +20,10 @@ async function getAllProducts(){
 }
 
 async function getProductById(id: number){
-    try{
+
+    try {
         let product = await client.product.findUnique({
-            where:{
+            where: {
                 id: id
             }
         })
@@ -35,17 +36,16 @@ async function getProductById(id: number){
             }
         }
     }
-    
 
 }
 
 async function createProduct(data: Prisma.ProductCreateInput){
-    try{
+    try {
         let product = await client.product.create({
             data: data
         })
         return product
-    } catch(error){
+    } catch(error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError){
             if (error.code in Object.keys(errors)){
                 const errorKey: keyof IErrors = error.code

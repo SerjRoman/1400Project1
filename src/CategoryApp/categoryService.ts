@@ -3,6 +3,37 @@ import { Prisma } from "@prisma/client";
 import { ICategoriesSuccess, ICategoryError, ICategorySuccess, ICategoryWithProductsSuccess } from "./types";
 
 
+// type Product = Prisma.ProductGetPayload<{}>
+
+// type Category = Prisma.CategoryGetPayload<{}>
+
+// type CategoryWithProducts = Prisma.CategoryGetPayload<{
+//     include: {
+//         Products: true
+//     }
+// }>
+// // {id: number, name: string, Products: [{name: string, id: number}]}
+
+// interface ICategoryError{
+//     status: 'error',
+//     message: string
+// }
+
+// interface ICategoriesSuccess{
+//     status: 'success',
+//     data: Category[]
+// }
+
+// interface ICategorySuccess{
+//     status: 'success',
+//     data: Category
+// }
+// interface ICategoryWithProductsSuccess{
+//     status: 'success',
+//     data: CategoryWithProducts
+// }
+
+import { ICategoriesSuccess, ICategoryError, ICategorySuccess, ICategoryWithProductsSuccess } from "./types";
 
 async function getAllCategories(): Promise< ICategoryError | ICategoriesSuccess > {
     const categories = await categoryRepository.getAllCategories();

@@ -2,9 +2,8 @@ import { Prisma } from "@prisma/client";
 import client from "../client/prismaClient";
 import { errors, IErrors } from "../config/errorCodes";
 
-
 async function findUserByEmail(email: string){
-    try{
+    try {
         let user = await client.user.findUnique({
             where: {
                 email: email
@@ -12,7 +11,8 @@ async function findUserByEmail(email: string){
         })
 
         return user;
-    } catch(error){
+
+    } catch(error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError){
             if (error.code in Object.keys(errors)){
                 const errorKey: keyof IErrors = error.code
@@ -23,7 +23,7 @@ async function findUserByEmail(email: string){
 }
 
 async function createUser(data: Prisma.UserCreateInput){
-    try{
+    try {
         const user = await client.user.create({
             data: {
                 username: data.username,
@@ -33,7 +33,8 @@ async function createUser(data: Prisma.UserCreateInput){
             }
         })
         return user;
-    }catch(error){
+
+    }catch(error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError){
             if (error.code in Object.keys(errors)){
                 const errorKey: keyof IErrors = error.code

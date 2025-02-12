@@ -1,6 +1,7 @@
-import { Prisma } from "@prisma/client"
 
-export type User = Prisma.UserGetPayload<{}>
+import { Prisma } from "@prisma/client";
+
+type User = Prisma.UserGetPayload<{}>
 
 export interface IUserError{
     status: 'error',
