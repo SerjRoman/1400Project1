@@ -20,6 +20,7 @@ async function getAllProducts(){
 }
 
 async function getProductById(id: number){
+
     try {
         let product = await client.product.findUnique({
             where: {
@@ -35,6 +36,7 @@ async function getProductById(id: number){
             }
         }
     }
+
 }
 
 async function createProduct(data: Prisma.ProductCreateInput){

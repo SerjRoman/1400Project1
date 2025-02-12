@@ -1,3 +1,4 @@
+
 import { Prisma } from "@prisma/client";
 
 type Product = Prisma.ProductGetPayload<{}>
@@ -9,7 +10,9 @@ type CategoryWithProducts = Prisma.CategoryGetPayload<{
         Products: true
     }
 }>
+
 // {id: number, name: string, Products: [{name: string, id: number}]}
+
 
 export interface ICategoryError{
     status: 'error',

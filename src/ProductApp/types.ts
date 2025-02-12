@@ -1,6 +1,8 @@
+
 import { Prisma } from "@prisma/client";
 
 type Product = Prisma.ProductGetPayload<{}>
+
 
 export interface IProductError{
     status: 'error',

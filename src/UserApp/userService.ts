@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import userRepository from "./userRepository";
+import { IUserError, IUserSuccess, User } from "./types";
 
 // type User = Prisma.UserGetPayload<{}>
 

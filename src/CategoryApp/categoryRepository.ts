@@ -26,6 +26,7 @@ async function getAllCategories() {
         return categories
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
+
             if (error.code in Object.keys(errors)) {
                 const errorKey: keyof IErrors = error.code
                 console.log(errors[errorKey])
@@ -45,6 +46,7 @@ async function getCategoryById(id: number) {
         return category
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
+
             if (error.code in Object.keys(errors)) {
                 const errorKey: keyof IErrors = error.code
                 console.log(errors[errorKey])
@@ -81,6 +83,7 @@ async function findProductByCategory(name: string){
         })
         return category
     } catch(error) {
+
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code in Object.keys(errors)) {
                 const errorKey: keyof IErrors = error.code
@@ -98,4 +101,5 @@ const categoryRepository = {
     findProductByCategory: findProductByCategory,
     getAllCategories: getAllCategories
 }
+
 export default categoryRepository

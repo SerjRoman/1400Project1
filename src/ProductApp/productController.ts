@@ -1,7 +1,7 @@
 // const productService = require('../services/productService')
 import productService from "./productService"
 
-import express, { Express, Request, Response } from 'express'
+import  { Request, Response } from 'express'
 
 
 async function getAllProducts(req:Request, res:Response) {
@@ -17,7 +17,7 @@ async function getAllProducts(req:Request, res:Response) {
 }
 
 async function getProductById(req:Request, res:Response){
-    let id = req.params.id
+    let id = Number(req.params.id)
     const result = await productService.getProductById(+id)
     if (result.status == "error"){
         res.send("ban")
