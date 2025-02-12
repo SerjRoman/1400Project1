@@ -32,3 +32,17 @@ export interface IUserResponse {
     data?: User;
     message?: string;
 }
+export interface ICategory {
+    id: number;
+    name: string;
+}
+
+export interface ICreateCategory {
+    name: string;
+}
+
+export interface ICategoryResponse {
+    status: string;
+    data?: ICategory | ICategory[];
+    message?: string;
+}
