@@ -1,18 +1,8 @@
-// const express = require('express')
-// const router = express.Router()
-// const productController = require('../controllers/productController')
-// router.get('/all', productController.getAllProducts)
-// router.get('/:id', productController.getProductById)
-// router.post('/create', productController.createProduct)
-// module.exports = router
-import userControllers from './userController';
-import {Router} from 'express';
+import { Router } from 'express';
+import userController from './UserController';
 
 const router = Router();
 
-router.post('/login', userControllers.authUser)
-router.get('/login', userControllers.login)
-router.post('/registration', userControllers.registerUser)
-router.get('/registration', userControllers.registration)
+router.post('/register', userController.registerUser);
 
 export default router;
