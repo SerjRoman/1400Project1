@@ -19,11 +19,6 @@ async function createCategory(data: Prisma.CategoryCreateInput) {
     }
 }
 
-
-
-
-
-
 // Получение всех Category
 async function getAllCategories() {
     try {
