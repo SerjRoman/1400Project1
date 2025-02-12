@@ -19,11 +19,6 @@ async function createCategory(data: Prisma.CategoryCreateInput) {
     }
 }
 
-
-
-
-
-
 // Получение всех Category
 async function getAllCategories() {
     try{
@@ -31,18 +26,9 @@ async function getAllCategories() {
         return categories
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2007') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2003') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2014') {
-                console.log(error.message);
-                throw error
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
     }
@@ -58,21 +44,9 @@ async function getCategoryById(id: number) {
         return category
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2003'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2007'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2014'){
-                console.log(error.message)
-                throw error
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
     }
@@ -87,7 +61,12 @@ async function findCategoryByName(name: string) {
         })
         return category
     } catch(error) {
-        console.log(error)
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
     }
 }
 
@@ -101,7 +80,12 @@ async function findProductByCategory(name: string){
         })
         return category
     } catch(error) {
-        console.log(error)
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
     }
 }
 
@@ -113,4 +97,5 @@ const categoryRepository = {
     findProductByCategory: findProductByCategory,
     getAllCategories: getAllCategories
 }
+
 export default categoryRepository
