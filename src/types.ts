@@ -5,13 +5,13 @@ export interface Product {
     categoryId: number;
 }
 
-export interface CreateProductDTO {
+export interface CreateProduct {
     name: string;
     price: number;
     categoryId: number;
 }
 
-export interface UpdateProductDTO {
+export interface UpdateProduct {
     name?: string;
     price?: number;
     categoryId?: number;
