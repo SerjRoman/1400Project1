@@ -4,7 +4,7 @@ import productService from "./productService"
 import express, { Express, Request, Response } from 'express'
 
 
-async function getAllProducts(req:Request, res:Response) {
+async function getAllProducts(req: Request, res: Response) {
     const context = await productService.getAllProducts()
     if (context.status == "error"){
         res.send("error")
@@ -13,7 +13,6 @@ async function getAllProducts(req:Request, res:Response) {
     }
 
     
-    // console.log(res.locals.user)
 }
 
 async function getProductById(req:Request, res:Response){

@@ -1,25 +1,10 @@
 import { Prisma } from "@prisma/client";
 import userRepository from "./userRepository";
+import { IUserError, IUserSuccess, User } from "./types"
 
-type User = Prisma.UserGetPayload<{}>
-
-interface IUserError{
-    status: 'error',
-    message: string
-}
-
-interface IUserSuccess{
-    status: 'success',
-    data: User
-}
 
 async function authUser(email: string, password: string): Promise< IUserError | IUserSuccess > {
     let user = await userRepository.findUserByEmail(email);
-    // if (user){
-    //     if (password == user.password){
-    //         return user;
-    //     }else {}
-    // }else {}
     if (!user){
         return {status: 'error', message: 'user not found'};
     }
@@ -51,6 +36,5 @@ const userService = {
     authUser: authUser,
     registerUser: registerUser
 }
-// yo this is my new baggy jeans bruh child po
 
 export default userService;

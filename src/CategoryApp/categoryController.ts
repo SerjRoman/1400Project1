@@ -19,7 +19,13 @@ function renderCreateCategory(req:Request, res:Response) {
 async function createCategory(req:Request, res:Response) {
     const data = req.body
     const createdCategory = await categoryService.createCategory(data);
-    res.send('category created')
+    if (createdCategory.status == "error"){
+        res.send(createdCategory.message)
+    } else{
+        res.send("ok")
+    }
+
+    // res.send('category created')
 }
 
 // async function createProduct(req:Request, res:Response) {
