@@ -2,29 +2,16 @@ import { create } from "ts-node";
 import categoryRepository from "./categoryRepository";
 import { Prisma } from "@prisma/client";
 
-interface IProduct{
-    id: number,
-    name: string,
-    src: string,
-    price: number,
-    description: string | null,
-}
+type Product = Prisma.ProductGetPayload<{}>
 
-interface ICategory{
-    id: number
-    name: string
-    description: string | null
-    src: string
-    
-}
+type Category = Prisma.CategoryGetPayload<{}>
 
-interface ICategoryWithProducts{
-    id: number
-    name: string
-    description: string | null
-    src: string,
-    Products: IProduct[]
-}
+type CategoryWithProducts = Prisma.CategoryGetPayload<{
+    include: {
+        Products: true
+    }
+}>
+// {id: number, name: string, Products: [{name: string, id: number}]}
 
 interface ICategoryError{
     status: 'error',
@@ -33,16 +20,16 @@ interface ICategoryError{
 
 interface ICategoriesSuccess{
     status: 'success',
-    data: ICategory[]
+    data: Category[]
 }
 
 interface ICategorySuccess{
     status: 'success',
-    data: ICategory
+    data: Category
 }
 interface ICategoryWithProductsSuccess{
     status: 'success',
-    data: ICategoryWithProducts
+    data: CategoryWithProducts
 }
 
 async function getAllCategories(): Promise< ICategoryError | ICategoriesSuccess > {

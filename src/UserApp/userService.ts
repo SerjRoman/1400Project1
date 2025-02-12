@@ -1,6 +1,8 @@
 import { Prisma } from "@prisma/client";
 import userRepository from "./userRepository";
 
+type User = Prisma.UserGetPayload<{}>
+
 interface IUserError{
     status: 'error',
     message: string
@@ -8,14 +10,7 @@ interface IUserError{
 
 interface IUserSuccess{
     status: 'success',
-    data: IUser
-}
-
-interface IUser{
-    id: number,
-    username: string,
-    email: string,
-    password: string
+    data: User
 }
 
 async function authUser(email: string, password: string): Promise< IUserError | IUserSuccess > {
@@ -28,11 +23,11 @@ async function authUser(email: string, password: string): Promise< IUserError | 
     if (!user){
         return {status: 'error', message: 'user not found'};
     }
-
+    
     if (user.password != password){
         return {status: 'error', message: 'nepravilniy password'};
     }
-    
+
     return {status: 'success', data: user};
 }   
 
