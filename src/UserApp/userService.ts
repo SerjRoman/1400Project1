@@ -23,6 +23,9 @@ async function authUser(email: string, password: string): Promise< IError | ISuc
 
 
 
+
+
+
 async function registerUser(data: Prisma.UserCreateInput): Promise< IError | ISuccess<User> > {
     const user = await userRepository.findUserByEmail(data.email)
     
