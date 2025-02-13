@@ -20,11 +20,6 @@ async function createCategory(data: Prisma.CategoryCreateInput) {
     }
 }
 
-
-
-
-
-
 // Получение всех Category
 async function getAllCategories() {
     try {
@@ -71,7 +66,12 @@ async function findCategoryByName(name: any) {
         })
         return category
     } catch(error) {
-        console.log(error)
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
     }
 }
 
@@ -85,7 +85,12 @@ async function findProductByCategory(name: string){
         })
         return category
     } catch(error) {
-        console.log(error)
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
     }
 }
 
@@ -97,4 +102,5 @@ const categoryRepository = {
     findProductByCategory: findProductByCategory,
     getAllCategories: getAllCategories
 }
+
 export default categoryRepository

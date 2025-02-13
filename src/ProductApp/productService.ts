@@ -1,3 +1,4 @@
+import { Prisma, Product } from "@prisma/client";
 import productRepository from "./productRepository";
 import { Prisma, Product } from "@prisma/client";
 import { CreateProduct } from "./types";

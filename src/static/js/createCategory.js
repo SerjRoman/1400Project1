@@ -1,18 +1,14 @@
-const button = document.querySelector('button');
-const name = document.querySelector('#name');
-const description = document.querySelector('#description');
-const image = document.querySelector('#image');
-button.addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent form submission
-    fetch('/category/createCategory',{
+form.addEventListener('submit', (event)=>{
+    event.preventDefault()
+    fetch('', {
         method: 'POST',
+        body: JSON.stringify({
+            name: title.value,
+            description: description.value,
+            src: src.value
+        }),
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name.value,
-            description: description.value,
-            image: image.value
-        })
+        }
     })
 })
