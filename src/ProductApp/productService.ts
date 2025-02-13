@@ -1,31 +1,11 @@
 import productRepository from "./productRepository";
-import { Prisma } from "@prisma/client";
-import { Product, IProductError, IProductsSuccess, IProductSuccess } from '../types'
+import { Prisma, Product } from "@prisma/client";
+import { CreateProduct } from "./types";
+import { IError, ISuccess } from '../types/types'
 
-
-// type Product = Prisma.ProductGetPayload<{}>
-
-// interface IProductError{
-//     status: 'error',
-//     message: string
-// }
-
-// interface IProductsSuccess{
-//     status: 'success',
-//     data: Product[]
-// }
-
-// interface IProductSuccess{
-//     status: 'success',
-//     data: Product
-// }
-
-async function getAllProducts(): Promise< IProductsSuccess | IProductError >{
+async function getAllProducts(): Promise< ISuccess<Product[]> | IError >{
     
     const products = await productRepository.getAllProducts()
-    // if (max <= products.length) {
-    //     context.products = products.slice(0, max)
-    // }
 
     if (!products){
         return {status: 'error', message: 'products not found'};
@@ -33,7 +13,7 @@ async function getAllProducts(): Promise< IProductsSuccess | IProductError >{
     return {status: 'success', data: products};
 }
 
-async function getProductById(id: number): Promise< IProductSuccess | IProductError > {
+async function getProductById(id: number): Promise< ISuccess<Product> | IError > {
     let product = await productRepository.getProductById(id)
 
     if (!product) {
@@ -45,7 +25,7 @@ async function getProductById(id: number): Promise< IProductSuccess | IProductEr
 }
 
 
-async function createProduct(data: Prisma.ProductCreateInput): Promise< IProductSuccess | IProductError >{
+async function createProduct(data: CreateProduct): Promise< ISuccess<Product> | IError >{
     let product = await productRepository.createProduct(data);
     if (!product){
         return {status: "error", message: "product create error"}
@@ -57,7 +37,8 @@ async function createProduct(data: Prisma.ProductCreateInput): Promise< IProduct
 const productService = {
     getAllProducts: getAllProducts,
     getProductById: getProductById,
-    createProduct: createProduct
+    createProduct: createProduct,
+    // IProduct: IProduct,
 } 
 
 export default productService

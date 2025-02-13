@@ -29,7 +29,7 @@ async function getProductById(id: number){
 
 }
 
-async function createProduct(data: Prisma.ProductCreateInput){
+async function createProduct(data: IProduct){
     let product = await client.product.create({
         data: data
     })
