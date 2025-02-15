@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Prisma } from "@prisma/client"
 
 export type Product = Prisma.ProductGetPayload<{}>
@@ -16,3 +17,11 @@ export interface IProductSuccess{
     status: 'success',
     data: Product
 }
+=======
+import { Prisma } from "@prisma/client";
+
+export type Product = Prisma.ProductGetPayload<{}>
+
+export type CreateProduct = Prisma.ProductUncheckedCreateInput
+
+>>>>>>> main

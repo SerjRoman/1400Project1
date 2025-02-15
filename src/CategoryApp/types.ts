@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import { Prisma } from "@prisma/client"
 
 export type Product = Prisma.ProductGetPayload<{}>
+=======
+import { Prisma } from "@prisma/client";
+>>>>>>> main
 
 export type Category = Prisma.CategoryGetPayload<{}>
 
@@ -10,6 +14,7 @@ export type CategoryWithProducts = Prisma.CategoryGetPayload<{
     }
 }>
 
+<<<<<<< HEAD
 export interface ICategoryError{
     status: 'error',
     message: string
@@ -28,3 +33,5 @@ export interface ICategoryWithProductsSuccess{
     status: 'success',
     data: CategoryWithProducts
 }
+=======
+>>>>>>> main

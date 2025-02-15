@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Prisma } from "@prisma/client"
 
 export interface IUserError{
@@ -11,3 +12,9 @@ export interface IUserSuccess{
 }
 
 export type User = Prisma.UserGetPayload<{}>
+=======
+import { Prisma } from "@prisma/client";
+
+export type User = Prisma.UserGetPayload<{}>
+
+>>>>>>> main

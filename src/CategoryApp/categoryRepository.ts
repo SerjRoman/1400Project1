@@ -21,36 +21,56 @@ async function createCategory(data: Prisma.CategoryCreateInput) {
 
 // Получение всех Category
 async function getAllCategories() {
-    try{
+    try {
         const categories = await client.category.findMany({})
         return categories
+<<<<<<< HEAD
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
             if (error.code in Object.keys(errors)){
                 const errorKey: keyof IErrors = error.code
                 console.log(errors[errorKey])
+=======
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code == 'P2002' || error.code == 'P2007' || error.code == 'P2003' || error.code == 'P2014') {
+                console.error(error.message);
+                throw error;
+>>>>>>> main
             }
         }
+        throw error;
     }
 }
+
 // Получение Category по айди
 async function getCategoryById(id: number) {
-    try{
+    try {
         let category = await client.category.findUnique({
             where: {
                 id: id
             }
         })
         return category
+<<<<<<< HEAD
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
             if (error.code in Object.keys(errors)){
                 const errorKey: keyof IErrors = error.code
                 console.log(errors[errorKey])
+=======
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code == 'P2002' || error.code == 'P2003' || error.code == 'P2007' || error.code == 'P2014') {
+                console.log(error.message)  
+                throw error
+>>>>>>> main
             }
         }
+        throw error
     }
 }
+
 
 async function findCategoryByName(name: string) {
     try {

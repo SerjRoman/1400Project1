@@ -37,6 +37,7 @@ async function getProductById(id: number){
     }
 }
 
+<<<<<<< HEAD
 async function createProduct(data: Prisma.ProductCreateInput){
     try{
         let product = await client.product.create({
@@ -51,6 +52,13 @@ async function createProduct(data: Prisma.ProductCreateInput){
             }
         }
     }
+=======
+async function createProduct(data: IProduct){
+    let product = await client.product.create({
+        data: data
+    })
+    return product
+>>>>>>> main
 }  
 
 const productRepository = {
