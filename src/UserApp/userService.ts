@@ -1,16 +1,12 @@
 import { Prisma } from "@prisma/client";
 import userRepository from "./userRepository";
-<<<<<<< HEAD
-import { IUserError, IUserSuccess, User } from "./types"
 
-
-async function authUser(email: string, password: string): Promise< IUserError | IUserSuccess > {
-=======
 import { IError, ISuccess } from '../types/types'
-import { User } from "./types";
+import { CreateUserG, User } from "./types";
+import { createCategoryG } from "../CategoryApp/types";
 
 async function authUser(email: string, password: string): Promise< IError | ISuccess<User> > {
->>>>>>> main
+
     let user = await userRepository.findUserByEmail(email);
     if (!user){
         return {status: 'error', message: 'user not found'};
@@ -25,7 +21,7 @@ async function authUser(email: string, password: string): Promise< IError | ISuc
 
 
 
-async function registerUser(data: Prisma.UserCreateInput): Promise< IError | ISuccess<User> > {
+async function registerUser(data: CreateUserG): Promise< IError | ISuccess<User> > {
     const user = await userRepository.findUserByEmail(data.email)
     
     if (user) {

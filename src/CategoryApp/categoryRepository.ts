@@ -1,9 +1,10 @@
 import client from '../client/prismaClient'
 import { Prisma } from '@prisma/client'
 import { errors, IErrors } from '../config/errorCodes'
+import { createCategoryG } from './types'
 
 // Создание одной Category
-async function createCategory(data: Prisma.CategoryCreateInput) {
+async function createCategory(data: createCategoryG) {
     try{
         const category = await client.category.create({
             data: data
@@ -24,19 +25,13 @@ async function getAllCategories() {
     try {
         const categories = await client.category.findMany({})
         return categories
-<<<<<<< HEAD
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
-                const errorKey: keyof IErrors = error.code
-                console.log(errors[errorKey])
-=======
+
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code == 'P2002' || error.code == 'P2007' || error.code == 'P2003' || error.code == 'P2014') {
                 console.error(error.message);
                 throw error;
->>>>>>> main
+
             }
         }
         throw error;
@@ -52,19 +47,13 @@ async function getCategoryById(id: number) {
             }
         })
         return category
-<<<<<<< HEAD
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
-                const errorKey: keyof IErrors = error.code
-                console.log(errors[errorKey])
-=======
+
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code == 'P2002' || error.code == 'P2003' || error.code == 'P2007' || error.code == 'P2014') {
                 console.log(error.message)  
                 throw error
->>>>>>> main
+
             }
         }
         throw error
