@@ -1,3 +1,4 @@
+import { IResponse } from '../responseTypes';
 export interface IProduct {
     id: number;
     name: string;
@@ -16,6 +17,9 @@ export interface IUpdateProduct {
     price?: number;
     categoryId?: number;
 }
+export type IProductResponse = IResponse<IProduct>;
+export type IProductsResponse = IResponse<IProduct[]>;
+
 export interface IUser {
     id: number;
     email: string;
