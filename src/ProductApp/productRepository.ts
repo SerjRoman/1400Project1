@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import client from '../client/prismaClient';
 import { errors, IErrors } from '../config/errorCodes'
+import { CreateProduct } from './types';
 
 
 async function getAllProducts(){
@@ -39,20 +40,11 @@ async function getProductById(id: number){
 
 }
 
-async function createProduct(data: Prisma.ProductCreateInput){
-    try{
-        let product = await client.product.create({
-            data: data
-        })
-        return product
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
-                const errorKey: keyof IErrors = error.code
-                console.log(errors[errorKey])
-            }
-        }
-    }
+async function createProduct(data: CreateProduct){
+    let product = await client.product.create({
+        data: data
+    })
+    return product
 }  
 
 const productRepository = {

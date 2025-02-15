@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import categoryService from "./categoryService"
 
 async function getAllCategories(req:Request, res:Response) {
@@ -19,6 +19,10 @@ function renderCreateCategory(req:Request, res:Response) {
 async function createCategory(req:Request, res:Response) {
     const data = req.body
     const createdCategory = await categoryService.createCategory(data);
+    if (createdCategory.status == 'error') {
+        res.send(createdCategory.message)
+        return
+    }
     res.send('category created')
 }
 
@@ -27,7 +31,7 @@ async function createCategory(req:Request, res:Response) {
 //     const createdProduct = await categoryService.createProduct(data)
 //     res.send('product created')
 // }
-
+//
 async function productsByCategory(req:Request, res:Response) {
     const category = req.params.category
     const data = await categoryService.getProductByCategory(category)

@@ -1,14 +1,10 @@
-import { Prisma, Product } from "@prisma/client";
 import productRepository from "./productRepository";
-import { IProductError, IProductsSuccess, IProductSuccess } from "./types";
+import { CreateProduct, Product } from "./types";
+import { IError, ISuccess } from '../types/types'
 
-
-async function getAllProducts(): Promise< IProductsSuccess | IProductError >{
+async function getAllProducts(): Promise< ISuccess<Product[]> | IError >{
     
     const products = await productRepository.getAllProducts()
-    // if (max <= products.length) {
-    //     context.products = products.slice(0, max)
-    // }
 
     if (!products){
         return {status: 'error', message: 'products not found'};
@@ -16,8 +12,8 @@ async function getAllProducts(): Promise< IProductsSuccess | IProductError >{
     return {status: 'success', data: products};
 }
 
-async function getProductById(id: number): Promise< IProductSuccess | IProductError > {
-    const product = await productRepository.getProductById(id)
+async function getProductById(id: number): Promise< ISuccess<Product> | IError > {
+    let product = await productRepository.getProductById(id)
 
     if (!product) {
         return {status: 'error', message: 'product not found'}
@@ -28,8 +24,8 @@ async function getProductById(id: number): Promise< IProductSuccess | IProductEr
 }
 
 
-async function createProduct(data: Prisma.ProductCreateInput): Promise< IProductSuccess | IProductError >{
-    const product = await productRepository.createProduct(data);
+async function createProduct(data: CreateProduct): Promise< ISuccess<Product> | IError >{
+    let product = await productRepository.createProduct(data);
     if (!product){
         return {status: "error", message: "product create error"}
     }
@@ -40,7 +36,7 @@ async function createProduct(data: Prisma.ProductCreateInput): Promise< IProduct
 const productService = {
     getAllProducts: getAllProducts,
     getProductById: getProductById,
-    createProduct: createProduct
+    createProduct: createProduct,
 } 
 
 export default productService

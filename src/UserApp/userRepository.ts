@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import client from "../client/prismaClient";
 import { errors, IErrors } from "../config/errorCodes";
+import { CreateUser } from "./types";
 
 
 async function findUserByEmail(email: string){
@@ -22,7 +23,7 @@ async function findUserByEmail(email: string){
     }
 }
 
-async function createUser(data: Prisma.UserCreateInput){
+async function createUser(data: CreateUser){
     try{
         const user = await client.user.create({
             data: {

@@ -1,13 +1,5 @@
-import { Prisma } from "@prisma/client"
+import { Prisma } from "@prisma/client";
 
 export type User = Prisma.UserGetPayload<{}>
 
-export interface IUserError{
-    status: 'error',
-    message: string
-}
-
-export interface IUserSuccess{
-    status: 'success',
-    data: User
-}
+export type CreateUser = Prisma.UserCreateInput
