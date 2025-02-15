@@ -38,20 +38,11 @@ async function getProductById(id: number){
 
 }
 
-async function createProduct(data: Prisma.ProductCreateInput){
-    try{
-        let product = await client.product.create({
-            data: data
-        })
-        return product
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
-                const errorKey: keyof IErrors = error.code
-                console.log(errors[errorKey])
-            }
-        }
-    }
+async function createProduct(data: IProduct){
+    let product = await client.product.create({
+        data: data
+    })
+    return product
 }  
 
 const productRepository = {
