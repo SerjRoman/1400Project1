@@ -1,6 +1,6 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import client from '../client/prismaClient';
-import { Product } from './types'
+import { CreateProduct, Product } from './types'
 import { errors, IErrors } from '../config/errorCodes'
 
 
@@ -39,10 +39,11 @@ async function getProductById(id: number){
 
 }
 
-async function createProduct(data: Product){
+async function createProduct(data: CreateProduct){
     let product = await client.product.create({
         data: data
     })
+
     return product
 }  
 

@@ -1,9 +1,10 @@
 import client from '../client/prismaClient'
 import { Prisma } from '@prisma/client'
+import { createCategoryT } from './types'
 import { errors, IErrors } from '../config/errorCodes'
 
 // Создание одной Category
-async function createCategory(data: Prisma.CategoryCreateInput) {
+async function createCategory(data: createCategoryT) {
     try{
         const category = await client.category.create({
             data: data
