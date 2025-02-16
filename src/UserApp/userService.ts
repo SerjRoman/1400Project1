@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import userRepository from "./userRepository";
 import { IError, ISuccess } from '../types/types'
-import { User } from "./types";
+import { User, CreateUser } from "./types";
 
 async function authUser(email: string, password: string): Promise< IError | ISuccess<User> > {
     let user = await userRepository.findUserByEmail(email);
@@ -23,7 +23,7 @@ async function authUser(email: string, password: string): Promise< IError | ISuc
 
 
 
-async function registerUser(data: Prisma.UserCreateInput): Promise< IError | ISuccess<User> > {
+async function registerUser(data: CreateUser): Promise< IError | ISuccess<User> > {
     const user = await userRepository.findUserByEmail(data.email)
     
     if (user) {

@@ -1,6 +1,6 @@
 import productRepository from "./productRepository";
-import { Prisma, Product } from "@prisma/client";
-import { CreateProduct } from "./types";
+import { Prisma } from "@prisma/client";
+import { CreateProduct, Product } from "./types";
 import { IError, ISuccess } from '../types/types'
 
 async function getAllProducts(): Promise< ISuccess<Product[]> | IError >{
