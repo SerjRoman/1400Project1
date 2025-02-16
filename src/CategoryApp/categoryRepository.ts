@@ -30,13 +30,12 @@ async function getAllCategories() {
         const categories = await client.category.findMany({})
         return categories
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-            if (error.code == 'P2002' || error.code == 'P2007' || error.code == 'P2003' || error.code == 'P2014') {
-                console.error(error.message);
-                throw error;
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
-        throw error;
     }
 }
 
@@ -50,13 +49,12 @@ async function getCategoryById(id: number) {
         })
         return category
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-            if (error.code == 'P2002' || error.code == 'P2003' || error.code == 'P2007' || error.code == 'P2014') {
-                console.log(error.message)  
-                throw error
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
-        throw error
     }
 }
 
@@ -70,7 +68,12 @@ async function findCategoryByName(name: string) {
         })
         return category
     } catch(error) {
-        console.log(error)
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
     }
 }
 
@@ -84,7 +87,12 @@ async function findProductByCategory(name: string){
         })
         return category
     } catch(error) {
-        console.log(error)
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
     }
 }
 
