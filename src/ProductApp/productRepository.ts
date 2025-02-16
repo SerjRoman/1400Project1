@@ -1,17 +1,18 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import client from '../client/prismaClient';
+import { errors, IErrors } from '../config/errorCodes';
+import { CreateProduct } from './productTypes';
 
 
 async function getAllProducts(){
     try{
-        let products = await client.product.findMany({
-        
-        })
+        let products = await client.product.findMany({})
         return products
     } catch(err){
         if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
+            if (err.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = err.code;
+                console.log(errorKey);
                 throw err;
             }
         }
@@ -19,20 +20,40 @@ async function getAllProducts(){
 }
 
 async function getProductById(id: number){
-    let product = await client.product.findUnique({
-        where:{
-            id: id
+    try{
+        let product = await client.product.findUnique({
+            where:{
+                id: id
+            }
+        })
+        return product
+    } catch(err){
+        if (err instanceof Prisma.PrismaClientKnownRequestError){
+            if (err.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = err.code;
+                console.log(errorKey);
+                throw err;
+            }
         }
-    })
-    return product
+    }
 
 }
 
-async function createProduct(data: Prisma.ProductCreateInput){
-    let product = await client.product.create({
-        data: data
-    })
-    return product
+async function createProduct(data: CreateProduct){
+    try{
+        let product = await client.product.create({
+            data: data
+        })
+        return product
+    } catch(err){
+        if (err instanceof Prisma.PrismaClientKnownRequestError){
+            if (err.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = err.code;
+                console.log(errorKey);
+                throw err;
+            }
+        }
+    }
 }  
 
 const productRepository = {

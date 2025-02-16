@@ -7,33 +7,31 @@ import express, { Express, Request, Response } from 'express'
 async function getAllProducts(req: Request, res: Response) {
     const context = await productService.getAllProducts()
     if (context.status == "error"){
-        res.send("error")
-    } else{
-        res.render('products', {products: context.data, username: res.locals.user.username})
+        res.send(context.message)
+        return;
     }
-
-    
-    // console.log(res.locals.user)
+    res.render('products', {products: context.data, username: res.locals.user.username})
 }
 
 async function getProductById(req:Request, res:Response){
     let id = req.params.id
     const result = await productService.getProductById(+id)
     if (result.status == "error"){
-        res.send("ban")
+        res.send(result.message)
+        return;
         
-    } else{
-        res.render('product', result.data)
     }
+    res.render('product', result.data)
+
 }
 
-async function createProduct(req:Request, res:Response){
+async function createProduct(req: Request, res: Response){
     const data = req.body
-    console.log(data)
     
     const result = await productService.createProduct(data);
     if (result.status == 'error'){
-        res.send('error');
+        res.send(result.message);
+        return;
     }
     res.send('ok')
 

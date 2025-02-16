@@ -1,5 +1,6 @@
 import client from '../client/prismaClient'
 import { Prisma } from '@prisma/client'
+import { errors, IErrors } from '../config/errorCodes'
 
 // Создание одной Category
 async function createCategory(data: Prisma.CategoryCreateInput) {
@@ -8,20 +9,12 @@ async function createCategory(data: Prisma.CategoryCreateInput) {
             data: data
         })
         return category
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2007') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2003') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2014') {
-                console.log(error.message);
-                throw error
+    } catch(err){
+        if (err instanceof Prisma.PrismaClientKnownRequestError){
+            if (err.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = err.code;
+                console.log(errorKey);
+                throw err;
             }
         }
     }
@@ -32,20 +25,12 @@ async function getAllCategories() {
     try{
         const categories = await client.category.findMany({})
         return categories
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2007') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2003') {
-                console.log(error.message);
-                throw error
-            } else if (error.code === 'P2014') {
-                console.log(error.message);
-                throw error
+    } catch(err){
+        if (err instanceof Prisma.PrismaClientKnownRequestError){
+            if (err.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = err.code;
+                console.log(errorKey);
+                throw err;
             }
         }
     }
@@ -59,23 +44,12 @@ async function getCategoryById(id: number) {
             }
         })
         return category
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code == 'P2002'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2003'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2007'){
-                console.log(error.message)
-                throw error
-            }
-            if (error.code == 'P2014'){
-                console.log(error.message)
-                throw error
+    } catch(err){
+        if (err instanceof Prisma.PrismaClientKnownRequestError){
+            if (err.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = err.code;
+                console.log(errorKey);
+                throw err;
             }
         }
     }
@@ -89,8 +63,14 @@ async function findCategoryByName(name: string) {
             }
         })
         return category
-    } catch(error) {
-        console.log(error)
+    } catch(err){
+        if (err instanceof Prisma.PrismaClientKnownRequestError){
+            if (err.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = err.code;
+                console.log(errorKey);
+                throw err;
+            }
+        }
     }
 }
 
@@ -103,8 +83,14 @@ async function findProductByCategory(name: string){
             include: { Products: true }
         })
         return category
-    } catch(error) {
-        console.log(error)
+    } catch(err){
+        if (err instanceof Prisma.PrismaClientKnownRequestError){
+            if (err.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = err.code;
+                console.log(errorKey);
+                throw err;
+            }
+        }
     }
 }
 
