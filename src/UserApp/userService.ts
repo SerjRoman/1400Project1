@@ -19,7 +19,7 @@ async function authUser(email: string, password: string): Promise< IError | ISuc
     }
 
     return {status: 'success', data: user};
-}   
+}
 
 
 

@@ -1,9 +1,9 @@
 import productRepository from "./productRepository";
-import { Prisma, Product } from "@prisma/client";
-import { CreateProduct } from "./types";
+
+import { CreateProduct, ProductWithCategory } from "./types";
 import { IError, ISuccess } from '../types/types'
 
-async function getAllProducts(): Promise< ISuccess<Product[]> | IError >{
+async function getAllProducts(): Promise< ISuccess<ProductWithCategory[]> | IError >{
     
     const products = await productRepository.getAllProducts()
 
@@ -13,7 +13,7 @@ async function getAllProducts(): Promise< ISuccess<Product[]> | IError >{
     return {status: 'success', data: products};
 }
 
-async function getProductById(id: number): Promise< ISuccess<Product> | IError > {
+async function getProductById(id: number): Promise< ISuccess<ProductWithCategory> | IError > {
     let product = await productRepository.getProductById(id)
 
     if (!product) {
@@ -25,7 +25,7 @@ async function getProductById(id: number): Promise< ISuccess<Product> | IError >
 }
 
 
-async function createProduct(data: CreateProduct): Promise< ISuccess<Product> | IError >{
+async function createProduct(data: CreateProduct): Promise< ISuccess<ProductWithCategory> | IError >{
     let product = await productRepository.createProduct(data);
     if (!product){
         return {status: "error", message: "product create error"}

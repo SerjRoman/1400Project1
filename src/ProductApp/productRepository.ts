@@ -6,7 +6,9 @@ import {CreateProduct} from "./types"
 async function getAllProducts(){
     try{
         let products = await client.product.findMany({
-        
+            include: {
+                Category: true
+            }
         })
         return products
     } catch(error){
@@ -24,6 +26,9 @@ async function getProductById(id: number){
         let product = await client.product.findUnique({
             where:{
                 id: id
+            },
+            include: {
+                Category: true
             }
         })
         return product
@@ -42,7 +47,10 @@ async function getProductById(id: number){
 async function createProduct(data: CreateProduct){
     try{
         let product = await client.product.create({
-            data: data
+            data: data,
+            include: {
+                Category: true
+            }
         })
         return product
     } catch(error){
