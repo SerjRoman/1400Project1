@@ -8,6 +8,9 @@ import categoryRouterApi from './CategoryApp/categoryRouterApi'
 import productRouterApi from './ProductApp/productRouterApi';
 import cors from 'cors'
 // Yuppi
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app: Express = express(); 
 const HOST: string = 'localhost';
