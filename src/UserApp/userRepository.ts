@@ -42,9 +42,35 @@ async function createUser(data: CreateUser){
 // :O(
 // (❁´◡`❁)
 // ＼(((￣(￣(￣▽￣)￣)￣)))／
+
+
+async function getUserById(id: number){
+    try {
+        let user = await client.user.findUnique({
+            where: {
+                id: id
+            },
+            select:{
+                id: true,
+                email: true,
+                username: true,
+                role: true
+            }
+        })
+        return user;
+    } catch(error){
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
+    }
+}
 const userRepository = {
     findUserByEmail: findUserByEmail,
     createUser: createUser,
+    getUserById: getUserById
 }
 
 export default userRepository;

@@ -68,10 +68,21 @@ async function registerUser(data: Prisma.UserCreateInput): Promise< IError | ISu
     return {status: 'success', data: token}
 }
 
+async function getUserById(id: number): Promise <IError | ISuccess<User>>{
+
+    const user = await userRepository.getUserById(id);
+
+    if (!user) {
+        return {status: 'error', message: "User is not found"}
+    }
+
+    return {status: 'success', data: user}
+}
 
 const userService = {
     authUser: authUser,
-    registerUser: registerUser
+    registerUser: registerUser,
+    getUserById: getUserById
 }
 
 // yo this is my new baggy jeans bruh kai angel 9mice

@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import categoryRouter from "./CategoryApp/categoryRouter"
 import categoryRouterApi from './CategoryApp/categoryRouterApi'
 import productRouterApi from './ProductApp/productRouterApi';
+import userRouterApi from './UserApp/userRouterApi';
 import cors from 'cors'
 // Yuppi
 import dotenv from 'dotenv'
@@ -34,6 +35,7 @@ app.use('/product/', productRouter)
 app.use('/category/', categoryRouter)
 app.use('/api/product/', productRouterApi)
 app.use('/api/category/', categoryRouterApi)
+app.use('/api/user', userRouterApi)
 app.use('/', userRouter)
 // метод додатку express, який очікує запит по вказаному посиланню
 // другим аргументом передається функція, яка здійсниться в момент запиту
