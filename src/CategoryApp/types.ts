@@ -9,4 +9,4 @@ export type CategoryWithProducts = Prisma.CategoryGetPayload<{
         Products: true
     }
 }>
-
+export type CreateCategory = Prisma.CategoryUncheckedCreateInput
