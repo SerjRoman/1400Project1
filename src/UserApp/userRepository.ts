@@ -1,11 +1,7 @@
 import { Prisma } from "@prisma/client";
 import client from "../client/prismaClient";
-import { createUserT } from './types';
-import { errors, IErrors } from "../config/errorCodes";
-
 import { IErrors, errors } from "../config/errorCodes"
-import { IError } from "../types/types"
-import { User, CreateUser } from "./types"
+import { CreateUser } from "./types"
 
 async function findUserByEmail(email: string){
     try {
@@ -24,21 +20,12 @@ async function findUserByEmail(email: string){
         }
     }
 }
-<<<<<<< HEAD
-
-async function createUser(data: createUserT){
-=======
-// (●'◡'●)
 async function createUser(data: CreateUser){
->>>>>>> main
     try{
         const user = await client.user.create({
             data: data
         })
         return user;
-<<<<<<< HEAD
-    }catch(error){
-=======
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
             if (error.code in Object.keys(errors)){
@@ -47,12 +34,7 @@ async function createUser(data: CreateUser){
             }
         }
     }
-    // ☆*: .｡. o(≧▽≦)o .｡.:*☆
 }
-// :O(
-// (❁´◡`❁)
-// ＼(((￣(￣(￣▽￣)￣)￣)))／
-
 
 async function getUserById(id: number){
     try {
@@ -69,7 +51,6 @@ async function getUserById(id: number){
         })
         return user;
     } catch(error){
->>>>>>> main
         if (error instanceof Prisma.PrismaClientKnownRequestError){
             if (error.code in Object.keys(errors)){
                 const errorKey: keyof IErrors = error.code

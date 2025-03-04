@@ -25,6 +25,7 @@ export function authTokenMiddleware(req: Request, res: Response, next: NextFunct
     
     try {
         const decodedToken = verify(token, SECRET_KEY) as IToken
+        console.log(decodedToken)
         res.locals.userId = decodedToken.id
         next()
     } catch (error) {

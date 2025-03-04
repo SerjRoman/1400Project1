@@ -15,7 +15,7 @@ dotenv.config()
 
 const app: Express = express(); 
 const HOST: string = 'localhost';
-const PORT: number = 8000;
+const PORT: number = 8001;
 
 //ставимо движок 
 app.set('view engine', 'ejs')
@@ -59,5 +59,5 @@ app.get('/', (req, res) => {
 
 
 app.listen(PORT, HOST, () =>{
-    console.log('http://localhost:8000')
+    console.log('http://localhost:8001')
 })

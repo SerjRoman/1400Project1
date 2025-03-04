@@ -1,7 +1,5 @@
 import { Request, Response } from 'express'
 import userService from './userService'
-import { SECRET_KEY } from '../config/token'
-import { sign } from 'jsonwebtoken'
 
 function login(req: Request, res: Response){
     res.render('login')
@@ -12,11 +10,6 @@ function registration(req: Request, res: Response){
 }
 
 async function authUser(req: Request, res: Response){
-    // console.log(req.body)
-    // // метод cookie отправляет специальный заголовок Set-Cookie
-    // res.cookie('user', req.body.email)
-    // res.sendStatus(200)
-
     const data = req.body
     const result = await userService.authUser(data.email, data.password)
     
@@ -28,7 +21,7 @@ async function authUser(req: Request, res: Response){
 
     res.cookie('token', result.data)
     res.sendStatus(200)
-    // res.send("Welcome")
+    res.send("Welcome")
 }
 
 async function registerUser(req: Request, res: Response){
@@ -39,8 +32,6 @@ async function registerUser(req: Request, res: Response){
         return
     }
     
-    res.cookie('token', result.data)
-    res.sendStatus(200)
     res.send("Successfully registered")
 }
 

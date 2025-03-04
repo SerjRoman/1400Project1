@@ -15,17 +15,16 @@ async function registerUser(req: Request, res: Response){
     const result = await userService.registerUser(data)
 
     res.json(result)
-    
-    // ( •̀ ω •́ )✧
+
 }
 
 async function getUserById(req: Request, res: Response){
     const id = res.locals.userId
+    // console.log("id:",id)
     const result = await userService.getUserById(id)
 
     res.json(result)
     
-    // ( •̀ ω •́ )✧
 }
 
 

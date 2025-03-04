@@ -5,12 +5,8 @@ import { errors, IErrors } from '../config/errorCodes'
 import { CreateCategory } from './types'
 
 // Создание одной Category
-<<<<<<< HEAD
-async function createCategory(data: createCategoryT) {
-=======
 // ( •̀ ω •́ )✧
 async function createCategory(data: CreateCategory) {
->>>>>>> main
     try{
         const category = await client.category.create({
             data: data

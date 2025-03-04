@@ -1,8 +1,7 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import client from '../client/prismaClient';
-import { CreateProduct, Product } from './types'
 import { errors, IErrors } from '../config/errorCodes'
-import {CreateProduct} from "./types"
+import { CreateProduct } from "./types"
 
 async function getAllProducts(){
     try{

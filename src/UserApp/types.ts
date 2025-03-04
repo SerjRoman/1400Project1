@@ -9,8 +9,4 @@ export type User = Prisma.UserGetPayload<{
     }
 }>
 
-<<<<<<< HEAD
-export type createUserT = Prisma.UserCreateInput
-=======
 export type CreateUser = Prisma.UserCreateInput
->>>>>>> main
