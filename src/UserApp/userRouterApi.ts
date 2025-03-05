@@ -1,4 +1,4 @@
-import { authTokenMiddleware } from '../middlewares/AuthTokenMiddleware';
+import { authTokenMiddleware } from '../middlewares/authTokenMiddleware';
 import userControllersApi from './userControllerApi';
 import {Router} from 'express';
 
