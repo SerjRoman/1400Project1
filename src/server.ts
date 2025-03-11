@@ -35,6 +35,7 @@ app.use('/product/', productRouter)
 app.use('/category/', categoryRouter)
 app.use('/api/product/', productRouterApi)
 app.use('/api/category/', categoryRouterApi)
+// http://localhost:8000/api/user/login
 app.use('/api/user', userRouterApi)
 app.use('/', userRouter)
 // метод додатку express, який очікує запит по вказаному посиланню
