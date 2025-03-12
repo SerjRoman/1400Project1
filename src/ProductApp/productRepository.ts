@@ -1,11 +1,15 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import client from '../client/prismaClient';
-import { errors, IError } from '../config/errorCodes'
-
+import { errors, IErrors } from '../config/errorCodes'
+import {CreateProduct} from "./types"
 
 async function getAllProducts(){
     try{
-        let products = await client.product.findMany({})
+        let products = await client.product.findMany({
+            include: {
+                Category: true
+            }
+        })
         return products
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
@@ -22,33 +26,42 @@ async function getProductById(id: number){
         let product = await client.product.findUnique({
             where:{
                 id: id
+            },
+            include: {
+                Category: true
             }
         })
         return product
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (errors.filter((err) => err.errorCode == error.code)){
-                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
-                console.log(err[0].message)
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
     }
+    
+
 }
 
-async function createProduct(data: Prisma.ProductCreateInput){
+async function createProduct(data: CreateProduct){
     try{
         let product = await client.product.create({
-            data: data
+            data: data,
+            include: {
+                Category: true
+            }
         })
         return product
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (errors.filter((err) => err.errorCode == error.code)){
-                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
-                console.log(err[0].message)
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
     }
+    
 }  
 
 const productRepository = {

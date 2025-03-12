@@ -5,5 +5,5 @@ model Product {
   price       Int
   description String?
   Category    Category @relation(fields: [categoryId], references: [id])
-  categoryId   Int
+  categoryId  Int
 }

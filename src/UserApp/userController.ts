@@ -13,15 +13,15 @@ function registration(req: Request, res: Response){
 
 async function authUser(req: Request, res: Response){
     const data = req.body
-    const user = await userService.authUser(data.email, data.password)
+    const result = await userService.authUser(data.email, data.password)
     
-    if (user.status == 'error') {
-        res.send(`${user.status}, ${user.message}`)
+    if (result.status == 'error'){
+        res.send(result.message)
         return
     }
 
-    const token = sign(user.data, SECRET_KEY, {expiresIn: '1h'})
-    res.cookie('token', token)
+
+    res.cookie('token', result.data)
     res.sendStatus(200)
 }
 
@@ -32,8 +32,8 @@ async function registerUser(req: Request, res: Response){
         res.send(`${result.status}, ${result.message}`)
         return
     }
-    const token = sign(result.data, SECRET_KEY, {expiresIn: '1h'})
-    res.cookie('token', token)
+    
+    res.cookie('token', result.data)
     res.sendStatus(200)
 }
 

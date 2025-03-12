@@ -1,9 +1,11 @@
 import client from '../client/prismaClient'
 import { Prisma } from '@prisma/client'
-import { errors, IError } from '../config/errorCodes'
+import { errors, IErrors } from '../config/errorCodes'
+import { CreateCategory } from './types'
 
 // Создание одной Category
-async function createCategory(data: Prisma.CategoryCreateInput) {
+// ( •̀ ω •́ )✧
+async function createCategory(data: CreateCategory) {
     try{
         const category = await client.category.create({
             data: data
@@ -21,37 +23,40 @@ async function createCategory(data: Prisma.CategoryCreateInput) {
 
 // Получение всех Category
 async function getAllCategories() {
-    try{
+    try {
         const categories = await client.category.findMany({})
         return categories
-    } catch(error){
+    } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (errors.filter((err) => err.errorCode == error.code)){
-                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
-                console.log(err[0].message)
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
+        throw error;
     }
 }
 
 // Получение Category по айди
 async function getCategoryById(id: number) {
-    try{
+    try {
         let category = await client.category.findUnique({
             where: {
                 id: id
             }
         })
         return category
-    } catch(error){
+    } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (errors.filter((err) => err.errorCode == error.code)){
-                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
-                console.log(err[0].message)
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
+        throw error
     }
 }
+
 
 async function findCategoryByName(name: string) {
     try{

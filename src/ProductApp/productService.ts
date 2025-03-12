@@ -1,17 +1,19 @@
 import productRepository from "./productRepository";
-import { Prisma } from "@prisma/client";
 
-import { IError, ISuccess, Product } from '../types/types'
+import { CreateProduct, ProductWithCategory } from "./types";
+import { IError, ISuccess } from '../types/types'
 
-async function getAllProducts(): Promise< IError | ISuccess<Product[]> >{
+async function getAllProducts(): Promise< ISuccess<ProductWithCategory[]> | IError >{
+    
     const products = await productRepository.getAllProducts()
+
     if (!products){
         return {status: 'error', message: 'products not found'};
     }
     return {status: 'success', data: products};
 }
 
-async function getProductById(id: number): Promise< IError | ISuccess<Product> > {
+async function getProductById(id: number): Promise< ISuccess<ProductWithCategory> | IError > {
     let product = await productRepository.getProductById(id)
     if (!product) {
         return {status: 'error', message: 'product not found'}
@@ -21,7 +23,7 @@ async function getProductById(id: number): Promise< IError | ISuccess<Product> >
 }
 
 
-async function createProduct(data: Prisma.ProductCreateInput): Promise< IError | ISuccess<Product> >{
+async function createProduct(data: CreateProduct): Promise< ISuccess<ProductWithCategory> | IError >{
     let product = await productRepository.createProduct(data);
     if (!product){
         return {status: "error", message: "product create error"}
@@ -32,7 +34,8 @@ async function createProduct(data: Prisma.ProductCreateInput): Promise< IError |
 const productService = {
     getAllProducts: getAllProducts,
     getProductById: getProductById,
-    createProduct: createProduct
+    createProduct: createProduct,
+    // IProduct: IProduct,
 } 
 
 export default productService

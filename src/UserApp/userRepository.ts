@@ -2,9 +2,12 @@ import { Prisma } from "@prisma/client";
 import client from "../client/prismaClient";
 import { errors, IError } from "../config/errorCodes";
 
+import { IErrors, errors } from "../config/errorCodes"
+import { IError } from "../types/types"
+import { User, CreateUser } from "./types"
 
 async function findUserByEmail(email: string){
-    try{
+    try {
         let user = await client.user.findUnique({
             where: {
                 email: email
@@ -13,15 +16,15 @@ async function findUserByEmail(email: string){
         return user;
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (errors.filter((err) => err.errorCode == error.code)){
-                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
-                console.log(err[0].message)
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
     }
 }
-
-async function createUser(data: Prisma.UserCreateInput){
+// (●'◡'●)
+async function createUser(data: CreateUser){
     try{
         const user = await client.user.create({
             data: data
@@ -29,9 +32,38 @@ async function createUser(data: Prisma.UserCreateInput){
         return user;
     } catch(error){
         if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (errors.filter((err) => err.errorCode == error.code)){
-                const err: IError[] = errors.filter((err) => err.errorCode == error.code)
-                console.log(err[0].message)
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
+    }
+    // ☆*: .｡. o(≧▽≦)o .｡.:*☆
+}
+// :O(
+// (❁´◡`❁)
+// ＼(((￣(￣(￣▽￣)￣)￣)))／
+
+
+async function getUserById(id: number){
+    try {
+        let user = await client.user.findUnique({
+            where: {
+                id: id
+            },
+            select:{
+                id: true,
+                email: true,
+                username: true,
+                role: true
+            }
+        })
+        return user;
+    } catch(error){
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
             }
         }
     }
@@ -39,6 +71,7 @@ async function createUser(data: Prisma.UserCreateInput){
 const userRepository = {
     findUserByEmail: findUserByEmail,
     createUser: createUser,
+    getUserById: getUserById
 }
 
 export default userRepository;

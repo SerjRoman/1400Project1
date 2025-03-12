@@ -17,14 +17,20 @@ function renderCreateCategory(req:Request, res:Response) {
 
 async function createCategory(req:Request, res:Response) {
     const data = req.body
-    const createdCategory = await categoryService.createCategory(data)
+    const createdCategory = await categoryService.createCategory(data);
     if (createdCategory.status == 'error') {
-        res.send(`${createdCategory.status}, ${createdCategory.message}`)
-    } else {
-        res.send('category created')
+        res.send(createdCategory.message)
+        return
     }
+    res.send('category created')
 }
 
+// async function createProduct(req:Request, res:Response) {
+//     const data = req.body
+//     const createdProduct = await categoryService.createProduct(data)
+//     res.send('product created')
+// }
+//
 async function productsByCategory(req:Request, res:Response) {
     const category = req.params.category
     const data = await categoryService.getProductByCategory(category)
