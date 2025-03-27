@@ -27,8 +27,9 @@ async function getProductById(id: number): Promise< ISuccess<ProductWithCategory
 
 async function createProduct(data: CreateProduct): Promise< ISuccess<ProductWithCategory> | IError >{
     let product = await productRepository.createProduct(data);
+
     if (!product){
-        return {status: "error", message: "product create error"}
+        return {status: "error", message: "Product create error"}
     }
 
     return {status: "success", data: product}
@@ -38,7 +39,6 @@ const productService = {
     getAllProducts: getAllProducts,
     getProductById: getProductById,
     createProduct: createProduct,
-    // IProduct: IProduct,
 } 
 
 export default productService

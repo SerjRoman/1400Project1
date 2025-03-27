@@ -1,5 +1,6 @@
 import client from '../client/prismaClient'
 import { Prisma } from '@prisma/client'
+import { createCategoryT } from './types'
 import { errors, IErrors } from '../config/errorCodes'
 import { CreateCategory } from './types'
 
@@ -20,11 +21,6 @@ async function createCategory(data: CreateCategory) {
         }
     }
 }
-
-
-
-
-
 
 // Получение всех Category
 async function getAllCategories() {
@@ -72,7 +68,12 @@ async function findCategoryByName(name: string) {
         })
         return category
     } catch(error) {
-        console.log(error)
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
     }
 }
 
@@ -86,7 +87,12 @@ async function findProductByCategory(name: string){
         })
         return category
     } catch(error) {
-        console.log(error)
+        if (error instanceof Prisma.PrismaClientKnownRequestError){
+            if (error.code in Object.keys(errors)){
+                const errorKey: keyof IErrors = error.code
+                console.log(errors[errorKey])
+            }
+        }
     }
 }
 

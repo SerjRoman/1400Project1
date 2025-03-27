@@ -1,9 +1,7 @@
 import { Prisma } from "@prisma/client";
 import client from "../client/prismaClient";
-
 import { IErrors, errors } from "../config/errorCodes"
-import { IError } from "../types/types"
-import { User, CreateUser } from "./types"
+import { CreateUser } from "./types"
 
 async function findUserByEmail(email: string){
     try {
@@ -22,7 +20,6 @@ async function findUserByEmail(email: string){
         }
     }
 }
-// (●'◡'●)
 async function createUser(data: CreateUser){
     try{
         const user = await client.user.create({
@@ -37,12 +34,7 @@ async function createUser(data: CreateUser){
             }
         }
     }
-    // ☆*: .｡. o(≧▽≦)o .｡.:*☆
 }
-// :O(
-// (❁´◡`❁)
-// ＼(((￣(￣(￣▽￣)￣)￣)))／
-
 
 async function getUserById(id: number){
     try {
